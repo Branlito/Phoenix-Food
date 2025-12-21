@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix Food - Le Meilleur Tacos du Haillan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            text-align: center;
+            padding: 8rem 2rem;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            animation: fadeIn 1s;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #FF6B35;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            color: #FF6B35;
+            margin: 3rem 0 1.5rem 0;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #F7931E;
+        }
+
+        .menu-category {
+            margin-bottom: 3rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .menu-item h3 {
+            color: #FF6B35;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            color: #F7931E;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #FF6B35;
+        }
+
+        .info-card h3 {
+            color: #FF6B35;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🔥 Phoenix Food</div>
+        </nav>
+    </header>
+
+    <section id="accueil" class="hero">
+        <h1>Bienvenue chez Phoenix Food</h1>
+        <p>Les meilleurs tacos du Haillan, préparés avec passion</p>
+    </section>
+
+    <section id="menu">
+        <h2>Notre Menu</h2>
+        
+        <div class="menu-category">
+            <h3 class="category-title">🍔 Menu Burger</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Fish Burger</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Cheeseburger</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Double Cheese Burger</h3>
+                    <div class="price">8,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Svensk Burger</h3>
+                    <p>Saumon, bacon</p>
+                    <div class="price">9,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Chicken Boca Burger</h3>
+                    <div class="price">8,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Hurricane's Burger</h3>
+                    <p>2 steaks, bacon, cheddar</p>
+                    <div class="price">11,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Burrata Burger</h3>
+                    <p>2 steaks, oignon caramélisé, poivron confit, burrata, cheddar, potatos farcis</p>
+                    <div class="price">11,00€</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">🌮 Menu Tacos</h3>
+            <p style="text-align: center; margin-bottom: 1rem; font-style: italic;">Viandes au choix : Viande hachée, kefta, tenders, nuggets, falafel, mex kefta, kebab, poulet, merguez, saumon, cordon bleu</p>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Tacos 1 Viande</h3>
+                    <div class="price">8,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Tacos 2 Viandes</h3>
+                    <div class="price">9,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Tacos 3 Viandes</h3>
+                    <div class="price">11,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Tacos 4 Viandes</h3>
+                    <div class="price">12,00€</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">🥙 Menu Sandwich</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Kebab</h3>
+                    <div class="price">8,50€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Boca Fuego</h3>
+                    <p>Poulet tex mex</p>
+                    <div class="price">8,50€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Boca Frio</h3>
+                    <p>Poulet curry</p>
+                    <div class="price">8,50€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Bocaorlente Eu</h3>
+                    <p>Kefta, merguez</p>
+                    <div class="price">8,50€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Boca Phoenix</h3>
+                    <p>Steak, merguez, œuf</p>
+                    <div class="price">9,50€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Boca Burrata</h3>
+                    <p>Steak, poulet, burrata</p>
+                    <div class="price">9,50€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Bocamericain</h3>
+                    <div class="price">8,50€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Bocawrap</h3>
+                    <div class="price">8,50€</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">🥖 Menu Panini</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Panini 3 Fromages</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Panini Steak Haché</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Panini Poulet</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Panini Poulet Tex Mex</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Panini Poulet Curry</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Panini Kefta</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Panini Saumon</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Panini Merguez</h3>
+                    <div class="price">7,00€</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">🍽️ Assiettes & Bowls</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Assiette 1 Viande</h3>
+                    <div class="price">9,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Assiette 2 Viandes</h3>
+                    <div class="price">10,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Assiette 3 Viandes</h3>
+                    <div class="price">11,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Crusty/Bowl 1 Viande</h3>
+                    <div class="price">9,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Crusty/Bowl 2 Viandes</h3>
+                    <div class="price">10,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Crusty/Bowl 3 Viandes</h3>
+                    <div class="price">11,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Poulet Crusty</h3>
+                    <div class="price">10,00€</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">🔥 Menu Hummer</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Hummer H1</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Hummer H2</h3>
+                    <div class="price">9,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Hummer H3</h3>
+                    <div class="price">10,00€</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">🧀 Gratin Au Four</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Frites, Poulet Mariné</h3>
+                    <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
+                    <div class="price">10,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Poulet Steak</h3>
+                    <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
+                    <div class="price">11,00€</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">👶 Menu Enfant - 7,00€</h3>
+            <p style="text-align: center; margin-top: 1rem;">Au choix : Cheeseburger, Nuggets 6Pc ou Mini Tacos<br>
+            + Frites + Boisson Capri Sun + Cadeau Surprise</p>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">🍟 Accompagnements</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Frites</h3>
+                    <p>S : 3€ | M : 4€ | L : 5€</p>
+                </div>
+                <div class="menu-item">
+                    <h3>Kebab</h3>
+                    <p>S : 4€ | M : 5€ | L : 8€</p>
+                </div>
+                <div class="menu-item">
+                    <h3>Chicken Wings 6Pc</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Crevettes Panées 6Pc</h3>
+                    <div class="price">7,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Jalapeños 6Pc</h3>
+                    <div class="price">6,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Camembert Panés 6Pc</h3>
+                    <div class="price">6,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Potatoes 6Pc</h3>
+                    <div class="price">6,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Stick Mozzarella 6Pc</h3>
+                    <div class="price">6,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Oignons Rings 6Pc</h3>
+                    <div class="price">6,00€</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">🍰 Desserts</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Tarte Aux Noix</h3>
+                    <div class="price">3,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Tarte Citron</h3>
+                    <div class="price">3,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Tarte Pana Cotta</h3>
+                    <div class="price">3,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Tiramisu</h3>
+                    <div class="price">3,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Panini Nutella</h3>
+                    <div class="price">3,00€</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <h3 class="category-title">🥤 Boissons</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Canette 33 Cl</h3>
+                    <div class="price">1,50€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Bouteille 1,25 L</h3>
+                    <div class="price">3,00€</div>
+                </div>
+                <div class="menu-item">
+                    <h3>Bouteille 1,5 L</h3>
+                    <div class="price">3,50€</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="infos">
+        <h2>Informations Pratiques</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>📍 Adresse</h3>
+                <p>116 Avenue Pasteur<br>33185 Le Haillan</p>
+            </div>
+            <div class="info-card">
+                <h3>🕐 Horaires</h3>
+                <p>Lundi - Jeudi : 11h - 23h<br>
+                Vendredi : 14h - 23h<br>
+                Samedi : 11h - 23h<br>
+                Dimanche : 12h - 23h</p>
+            </div>
+            <div class="info-card">
+                <h3>📞 Contact</h3>
+                <p>Tél : 09 88 05 19 84</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Nous Contacter</h2>
+        <div style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 10px;">
+            <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                Pour toute commande ou renseignement, n'hésitez pas à nous appeler !
+            </p>
+            <p style="font-size: 1.5rem; color: #FF6B35; font-weight: bold;">
+                📞 09 88 05 19 84
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Phoenix Food - Tous droits réservés</p>
+        <p>Le Haillan, Nouvelle-Aquitaine</p>
+    </footer>
+</body>
+</html>
