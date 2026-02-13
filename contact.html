@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phoenix Food - Le Meilleur Tacos du Haillan</title>
+    <title>Contact - Phoenix Food</title>
     <style>
         * {
             margin: 0;
@@ -22,23 +22,22 @@
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background-attachment: fixed;
         }
 
         header {
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            background: #333;
             color: white;
             padding: 2rem 0;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         nav {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             padding: 0 2rem;
         }
@@ -49,108 +48,214 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        .hero {
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .contact-hero {
             background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
             color: white;
             text-align: center;
-            padding: 8rem 2rem;
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 6rem 2rem 4rem 2rem;
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
+        .contact-hero h1 {
+            font-size: 3rem;
             margin-bottom: 1rem;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            animation: fadeIn 1s;
         }
 
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
+        .contact-hero p {
+            font-size: 1.3rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        section {
+        .contact-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
 
-        h2 {
-            font-size: 2.5rem;
-            color: #FF6B35;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .category-title {
-            font-size: 1.8rem;
-            color: #FF6B35;
-            margin: 3rem 0 1.5rem 0;
-            text-align: center;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid #F7931E;
-        }
-
-        .menu-category {
-            margin-bottom: 3rem;
-        }
-
-        .menu-grid {
+        .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 3rem;
+            margin-bottom: 4rem;
         }
 
-        .menu-item {
+        .contact-card {
             background: white;
-            padding: 2rem;
+            padding: 3rem 2rem;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .menu-item h3 {
-            color: #FF6B35;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .price {
-            color: #F7931E;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .info-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             text-align: center;
-            border-left: 4px solid #FF6B35;
+            transition: transform 0.3s;
         }
 
-        .info-card h3 {
-            color: #FF6B35;
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
             margin-bottom: 1rem;
+        }
+
+        .contact-card h2 {
+            color: #FF6B35;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .contact-card a {
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: #F7931E;
+        }
+
+        .map-container {
+            margin-top: 3rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            border: 0;
+        }
+
+        .hours-section {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .hours-section h2 {
+            color: #FF6B35;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hour-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .hour-item strong {
+            color: #FF6B35;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .legal-section {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+            max-width: 900px;
+            margin: 2rem auto;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .legal-section.active {
+            display: block;
+        }
+
+        .legal-section h3 {
+            color: #FF6B35;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .legal-section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .legal-section a {
+            color: #FF6B35;
+        }
+
+        .legal-toggle {
+            text-align: center;
+            margin-top: 3rem;
+            cursor: pointer;
+        }
+
+        .legal-toggle a {
+            color: #FF6B35;
+            text-decoration: underline;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .legal-toggle a:hover {
+            color: #F7931E;
+        }
+
+        .uber-eats-btn {
+            display: inline-block;
+            background: #06C167;
+            color: #000 !important;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(6, 193, 103, 0.3);
+            margin-top: 1rem;
+        }
+
+        .uber-eats-btn:hover {
+            background: #05a856;
+            color: #000 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(6, 193, 103, 0.4);
         }
 
         footer {
@@ -161,14 +266,11 @@
             margin-top: 4rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1.2rem; }
+            .contact-hero h1 { font-size: 2rem; }
+            .contact-hero p { font-size: 1.1rem; }
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -176,355 +278,137 @@
     <header>
         <nav>
             <div class="logo">🔥 Phoenix Food</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </nav>
     </header>
 
-    <section id="accueil" class="hero">
-        <h1>Bienvenue chez Phoenix Food</h1>
-        <p>Les meilleurs tacos du Haillan, préparés avec passion</p>
-    </section>
+    <div class="contact-hero">
+        <h1>Contactez-nous</h1>
+        <p>Nous sommes là pour répondre à toutes vos questions !</p>
+    </div>
 
-    <section id="menu">
-        <h2>Notre Menu</h2>
-        
-        <div class="menu-category">
-            <h3 class="category-title">🍔 Menu Burger</h3>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Fish Burger</h3>
-                    <div class="price">7,00€</div>
+    <div class="contact-container">
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <h2>Adresse</h2>
+                <p>116 Avenue Pasteur<br>33185 Le Haillan<br>France</p>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h2>Téléphone</h2>
+                <p><a href="tel:0988051984">09 88 05 19 84</a></p>
+                <p style="font-size: 1rem; margin-top: 1rem; color: #888;">Commandez par téléphone</p>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">🛵</div>
+                <h2>Livraison</h2>
+                <a href="https://www.ubereats.com/fr/store/sas-phoenix-food/RGrcGzB9RvimnWAZWp8_rA?diningMode=DELIVERY&pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMkJ1cmdlciUyMEJybyd6JTIyJTJDJTIycmVmZXJlbmNlJTIyJTNBJTIyQ2hJSkIzOHpqNTdYVkEwUlRNQmcyNWtURUhjJTIyJTJDJTIycmVmZXJlbmNlVHlwZSUyMiUzQSUyMmdvb2dsZV9wbGFjZXMlMjIlMkMlMjJsYXRpdHVkZSUyMiUzQTQ0Ljg5MjI2OTclMkMlMjJsb25naXR1ZGUlMjIlM0EtMC42NjI1MDQxJTdE" target="_blank" class="uber-eats-btn">Commander sur Uber Eats</a>
+                <p style="font-size: 1rem; margin-top: 1rem; color: #888;">Livraison rapide à domicile</p>
+            </div>
+        </div>
+
+        <div class="hours-section">
+            <h2>Horaires détaillés</h2>
+            <div class="hours-grid">
+                <div class="hour-item">
+                    <strong>Lundi</strong>
+                    <p>11h00 - 23h00</p>
                 </div>
-                <div class="menu-item">
-                    <h3>Cheeseburger</h3>
-                    <div class="price">7,00€</div>
+                <div class="hour-item">
+                    <strong>Mardi</strong>
+                    <p>11h00 - 23h00</p>
                 </div>
-                <div class="menu-item">
-                    <h3>Double Cheese Burger</h3>
-                    <div class="price">8,00€</div>
+                <div class="hour-item">
+                    <strong>Mercredi</strong>
+                    <p>11h00 - 23h00</p>
                 </div>
-                <div class="menu-item">
-                    <h3>Svensk Burger</h3>
-                    <p>Saumon, bacon</p>
-                    <div class="price">9,00€</div>
+                <div class="hour-item">
+                    <strong>Jeudi</strong>
+                    <p>11h00 - 23h00</p>
                 </div>
-                <div class="menu-item">
-                    <h3>Chicken Boca Burger</h3>
-                    <div class="price">8,00€</div>
+                <div class="hour-item">
+                    <strong>Vendredi</strong>
+                    <p>14h00 - 23h00</p>
                 </div>
-                <div class="menu-item">
-                    <h3>Hurricane's Burger</h3>
-                    <p>2 steaks, bacon, cheddar</p>
-                    <div class="price">11,00€</div>
+                <div class="hour-item">
+                    <strong>Samedi</strong>
+                    <p>11h00 - 23h00</p>
                 </div>
-                <div class="menu-item">
-                    <h3>Burrata Burger</h3>
-                    <p>2 steaks, oignon caramélisé, poivron confit, burrata, cheddar, potatos farcis</p>
-                    <div class="price">11,00€</div>
+                <div class="hour-item">
+                    <strong>Dimanche</strong>
+                    <p>12h00 - 23h00</p>
                 </div>
             </div>
         </div>
 
-        <div class="menu-category">
-            <h3 class="category-title">🌮 Menu Tacos</h3>
-            <p style="text-align: center; margin-bottom: 1rem; font-style: italic;">Viandes au choix : Viande hachée, kefta, tenders, nuggets, falafel, mex kefta, kebab, poulet, merguez, saumon, cordon bleu</p>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Tacos 1 Viande</h3>
-                    <div class="price">8,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Tacos 2 Viandes</h3>
-                    <div class="price">9,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Tacos 3 Viandes</h3>
-                    <div class="price">11,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Tacos 4 Viandes</h3>
-                    <div class="price">12,00€</div>
-                </div>
-            </div>
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps?q=116+Avenue+Pasteur,+33185+Le+Haillan&output=embed"
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
         </div>
 
-        <div class="menu-category">
-            <h3 class="category-title">🥙 Menu Sandwich</h3>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Kebab</h3>
-                    <div class="price">8,50€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Boca Fuego</h3>
-                    <p>Poulet tex mex</p>
-                    <div class="price">8,50€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Boca Frio</h3>
-                    <p>Poulet curry</p>
-                    <div class="price">8,50€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Bocaorlente Eu</h3>
-                    <p>Kefta, merguez</p>
-                    <div class="price">8,50€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Boca Phoenix</h3>
-                    <p>Steak, merguez, œuf</p>
-                    <div class="price">9,50€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Boca Burrata</h3>
-                    <p>Steak, poulet, burrata</p>
-                    <div class="price">9,50€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Bocamericain</h3>
-                    <div class="price">8,50€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Bocawrap</h3>
-                    <div class="price">8,50€</div>
-                </div>
-            </div>
+        <div class="legal-toggle">
+            <a onclick="toggleLegal()">Mentions Légales</a>
         </div>
 
-        <div class="menu-category">
-            <h3 class="category-title">🥖 Menu Panini</h3>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Panini 3 Fromages</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Panini Steak Haché</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Panini Poulet</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Panini Poulet Tex Mex</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Panini Poulet Curry</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Panini Kefta</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Panini Saumon</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Panini Merguez</h3>
-                    <div class="price">7,00€</div>
-                </div>
-            </div>
-        </div>
+        <div id="mentions-legales" class="legal-section">
+            <h2 style="text-align: center; color: #FF6B35; margin-bottom: 2rem;">Mentions Légales</h2>
+            
+            <h3>1. Informations légales</h3>
+            <p><strong>Raison sociale :</strong> Phoenix Food</p>
+            <p><strong>Adresse :</strong> 116 Avenue Pasteur, 33185 Le Haillan, France</p>
+            <p><strong>Téléphone :</strong> 09 88 05 19 84</p>
+            <p><strong>SIRET :</strong> [À compléter]</p>
+            <p><strong>Forme juridique :</strong> [À compléter - ex: SARL, Auto-entrepreneur, etc.]</p>
 
-        <div class="menu-category">
-            <h3 class="category-title">🍽️ Assiettes & Bowls</h3>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Assiette 1 Viande</h3>
-                    <div class="price">9,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Assiette 2 Viandes</h3>
-                    <div class="price">10,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Assiette 3 Viandes</h3>
-                    <div class="price">11,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Crusty/Bowl 1 Viande</h3>
-                    <div class="price">9,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Crusty/Bowl 2 Viandes</h3>
-                    <div class="price">10,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Crusty/Bowl 3 Viandes</h3>
-                    <div class="price">11,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Poulet Crusty</h3>
-                    <div class="price">10,00€</div>
-                </div>
-            </div>
-        </div>
+            <h3>2. Hébergement du site</h3>
+            <p><strong>Hébergeur :</strong> Vercel Inc.</p>
+            <p><strong>Adresse :</strong> 340 S Lemon Ave #4133, Walnut, CA 91789, USA</p>
+            <p><strong>Site web :</strong> <a href="https://vercel.com" target="_blank">vercel.com</a></p>
 
-        <div class="menu-category">
-            <h3 class="category-title">🔥 Menu Hummer</h3>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Hummer H1</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Hummer H2</h3>
-                    <div class="price">9,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Hummer H3</h3>
-                    <div class="price">10,00€</div>
-                </div>
-            </div>
-        </div>
+            <h3>3. Propriété intellectuelle</h3>
+            <p>L'ensemble des contenus présents sur ce site (textes, images, logos) sont la propriété de Phoenix Food, sauf mention contraire. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
 
-        <div class="menu-category">
-            <h3 class="category-title">🧀 Gratin Au Four</h3>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Frites, Poulet Mariné</h3>
-                    <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
-                    <div class="price">10,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Poulet Steak</h3>
-                    <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
-                    <div class="price">11,00€</div>
-                </div>
-            </div>
-        </div>
+            <h3>4. Données personnelles</h3>
+            <p>Ce site ne collecte aucune donnée personnelle. Aucun cookie n'est utilisé pour le suivi des visiteurs.</p>
+            <p>Les informations de contact affichées (adresse, téléphone) sont uniquement destinées à permettre aux clients de nous contacter.</p>
 
-        <div class="menu-category">
-            <h3 class="category-title">👶 Menu Enfant - 7,00€</h3>
-            <p style="text-align: center; margin-top: 1rem;">Au choix : Cheeseburger, Nuggets 6Pc ou Mini Tacos<br>
-            + Frites + Boisson Capri Sun + Cadeau Surprise</p>
-        </div>
+            <h3>5. Responsabilité</h3>
+            <p>Phoenix Food s'efforce d'assurer l'exactitude des informations diffusées sur ce site, notamment concernant le menu et les prix. Toutefois, nous nous réservons le droit de modifier ces informations sans préavis.</p>
+            <p>Les prix affichés sont indicatifs et peuvent être sujets à modification.</p>
 
-        <div class="menu-category">
-            <h3 class="category-title">🍟 Accompagnements</h3>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Frites</h3>
-                    <p>S : 3€ | M : 4€ | L : 5€</p>
-                </div>
-                <div class="menu-item">
-                    <h3>Kebab</h3>
-                    <p>S : 4€ | M : 5€ | L : 8€</p>
-                </div>
-                <div class="menu-item">
-                    <h3>Chicken Wings 6Pc</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Crevettes Panées 6Pc</h3>
-                    <div class="price">7,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Jalapeños 6Pc</h3>
-                    <div class="price">6,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Camembert Panés 6Pc</h3>
-                    <div class="price">6,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Potatoes 6Pc</h3>
-                    <div class="price">6,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Stick Mozzarella 6Pc</h3>
-                    <div class="price">6,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Oignons Rings 6Pc</h3>
-                    <div class="price">6,00€</div>
-                </div>
-            </div>
-        </div>
+            <h3>6. Liens hypertextes</h3>
+            <p>Ce site peut contenir des liens vers d'autres sites. Phoenix Food n'est pas responsable du contenu de ces sites externes.</p>
 
-        <div class="menu-category">
-            <h3 class="category-title">🍰 Desserts</h3>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Tarte Aux Noix</h3>
-                    <div class="price">3,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Tarte Citron</h3>
-                    <div class="price">3,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Tarte Pana Cotta</h3>
-                    <div class="price">3,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Tiramisu</h3>
-                    <div class="price">3,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Panini Nutella</h3>
-                    <div class="price">3,00€</div>
-                </div>
-            </div>
-        </div>
+            <h3>7. Droit applicable</h3>
+            <p>Le présent site est soumis au droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
 
-        <div class="menu-category">
-            <h3 class="category-title">🥤 Boissons</h3>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Canette 33 Cl</h3>
-                    <div class="price">1,50€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Bouteille 1,25 L</h3>
-                    <div class="price">3,00€</div>
-                </div>
-                <div class="menu-item">
-                    <h3>Bouteille 1,5 L</h3>
-                    <div class="price">3,50€</div>
-                </div>
-            </div>
+            <p style="margin-top: 2rem; font-style: italic; color: #666;">Dernière mise à jour : Février 2025</p>
         </div>
-    </section>
-
-    <section id="infos">
-        <h2>Informations Pratiques</h2>
-        <div class="info-grid">
-            <div class="info-card">
-                <h3>📍 Adresse</h3>
-                <p>116 Avenue Pasteur<br>33185 Le Haillan</p>
-            </div>
-            <div class="info-card">
-                <h3>🕐 Horaires</h3>
-                <p>Lundi - Jeudi : 11h - 23h<br>
-                Vendredi : 14h - 23h<br>
-                Samedi : 11h - 23h<br>
-                Dimanche : 12h - 23h</p>
-            </div>
-            <div class="info-card">
-                <h3>📞 Contact</h3>
-                <p>Tél : 09 88 05 19 84</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>Nous Contacter</h2>
-        <div style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 10px;">
-            <p style="font-size: 1.2rem; margin-bottom: 1rem;">
-                Pour toute commande ou renseignement, n'hésitez pas à nous appeler !
-            </p>
-            <p style="font-size: 1.5rem; color: #FF6B35; font-weight: bold;">
-                📞 09 88 05 19 84
-            </p>
-        </div>
-    </section>
+    </div>
 
     <footer>
-        <p>&copy; 2024 Phoenix Food - Tous droits réservés</p>
+        <p>&copy; 2025 Phoenix Food - Tous droits réservés</p>
         <p>Le Haillan, Nouvelle-Aquitaine</p>
     </footer>
+
+    <script>
+        function toggleLegal() {
+            const legalSection = document.getElementById('mentions-legales');
+            legalSection.classList.toggle('active');
+            
+            if (legalSection.classList.contains('active')) {
+                legalSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
 </body>
 </html>
