@@ -22,6 +22,8 @@
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background-attachment: fixed;
         }
 
         header {
@@ -38,7 +40,7 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             padding: 0 2rem;
         }
@@ -47,6 +49,26 @@
             font-size: 2rem;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
         .hero {
@@ -92,18 +114,22 @@
 
         h2 {
             font-size: 2.5rem;
-            color: #FF6B35;
+            color: #fff;
             margin-bottom: 2rem;
             text-align: center;
         }
 
         .category-title {
             font-size: 1.8rem;
-            color: #FF6B35;
+            color: #fff;
             margin: 3rem 0 1.5rem 0;
             text-align: center;
             padding-bottom: 0.5rem;
             border-bottom: 3px solid #F7931E;
+        }
+
+        .menu-category > p {
+            color: #fff;
         }
 
         .menu-category {
@@ -163,6 +189,29 @@
             margin-bottom: 1rem;
         }
 
+        .legal-section {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .legal-section h3 {
+            color: #FF6B35;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .legal-section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .legal-section a {
+            color: #FF6B35;
+        }
+
         footer {
             background: #333;
             color: white;
@@ -179,6 +228,8 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1.2rem; }
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -186,12 +237,16 @@
     <header>
         <nav>
             <div class="logo">🔥 Phoenix Food</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </nav>
     </header>
 
     <section id="accueil" class="hero">
         <h1>Bienvenue chez Phoenix Food</h1>
-        <p>Les meilleurs tacos du Haillan, préparés avec passion</p>
+        <p>Tacos, burgers et bien plus encore !</p>
         <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/b3/69/59/fast-food-tacos-and-you.jpg?w=1200&h=-1&s=1" alt="Délicieux tacos Phoenix Food" class="hero-image">
     </section>
 
@@ -408,9 +463,15 @@
         </div>
 
         <div class="menu-category">
-            <h3 class="category-title">👶 Menu Enfant - 7,00€</h3>
-            <p style="text-align: center; margin-top: 1rem;">Au choix : Cheeseburger, Nuggets 6Pc ou Mini Tacos<br>
-            + Frites + Boisson Capri Sun + Cadeau Surprise</p>
+            <h3 class="category-title">👶 Menu Enfant</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Menu Enfant</h3>
+                    <p>Au choix : Cheeseburger, Nuggets 6Pc ou Mini Tacos</p>
+                    <p>+ Frites + Boisson Capri Sun + Cadeau Surprise</p>
+                    <div class="price">7,00€</div>
+                </div>
+            </div>
         </div>
 
         <div class="menu-category">
@@ -500,41 +561,8 @@
         </div>
     </section>
 
-    <section id="infos">
-        <h2>Informations Pratiques</h2>
-        <div class="info-grid">
-            <div class="info-card">
-                <h3>📍 Adresse</h3>
-                <p>116 Avenue Pasteur<br>33185 Le Haillan</p>
-            </div>
-            <div class="info-card">
-                <h3>🕐 Horaires</h3>
-                <p>Lundi - Jeudi : 11h - 23h<br>
-                Vendredi : 14h - 23h<br>
-                Samedi : 11h - 23h<br>
-                Dimanche : 12h - 23h</p>
-            </div>
-            <div class="info-card">
-                <h3>📞 Contact</h3>
-                <p>Tél : 09 88 05 19 84</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>Nous Contacter</h2>
-        <div style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 10px;">
-            <p style="font-size: 1.2rem; margin-bottom: 1rem;">
-                Pour toute commande ou renseignement, n'hésitez pas à nous appeler !
-            </p>
-            <p style="font-size: 1.5rem; color: #FF6B35; font-weight: bold;">
-                📞 09 88 05 19 84
-            </p>
-        </div>
-    </section>
-
     <footer>
-        <p>&copy; 2024 Phoenix Food - Tous droits réservés</p>
+        <p>&copy; 2025 Phoenix Food - Tous droits réservés</p>
         <p>Le Haillan, Nouvelle-Aquitaine</p>
     </footer>
 </body>
