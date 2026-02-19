@@ -220,6 +220,32 @@
             margin-top: 4rem;
         }
 
+        .music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .music-toggle span {
+            font-size: 2rem;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -565,5 +591,90 @@
         <p>&copy; 2025 Phoenix Food - Tous droits réservés</p>
         <p>Le Haillan, Nouvelle-Aquitaine</p>
     </footer>
+
+    <!-- Musique d'ambiance -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Bouton de contrôle musique -->
+    <div class="music-toggle" id="musicToggle">
+        <span id="musicIcon">🔊</span>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+        
+        // Démarrer la musique automatiquement à volume bas
+        music.volume = 0.3; // 30% du volume
+        
+        // Récupérer l'état et la position de la musique depuis localStorage
+        const musicState = localStorage.getItem('musicPlaying');
+        const musicTime = localStorage.getItem('musicTime');
+        
+        if (musicTime) {
+            music.currentTime = parseFloat(musicTime);
+        }
+        
+        // Fonction pour démarrer la musique
+        function startMusic() {
+            music.play().then(() => {
+                musicIcon.textContent = '🔊';
+                localStorage.setItem('musicPlaying', 'playing');
+            }).catch(() => {
+                // Si autoplay bloqué, faire clignoter le bouton
+                musicToggle.style.animation = 'pulse 1s infinite';
+                console.log('Cliquez sur le bouton 🔊 pour lancer la musique');
+            });
+        }
+        
+        // Tenter de lancer la musique automatiquement
+        window.addEventListener('load', () => {
+            if (musicState === 'paused') {
+                musicIcon.textContent = '🔇';
+            } else {
+                startMusic();
+            }
+        });
+        
+        // Détecter la première interaction de l'utilisateur
+        let firstInteraction = true;
+        document.addEventListener('click', () => {
+            if (firstInteraction && music.paused && musicState !== 'paused') {
+                startMusic();
+                firstInteraction = false;
+            }
+        }, { once: true });
+        
+        // Sauvegarder la position toutes les secondes
+        setInterval(() => {
+            if (!music.paused) {
+                localStorage.setItem('musicTime', music.currentTime);
+                localStorage.setItem('musicPlaying', 'playing');
+            }
+        }, 1000);
+        
+        // Toggle musique
+        musicToggle.addEventListener('click', () => {
+            musicToggle.style.animation = 'none';
+            if (music.paused) {
+                music.play();
+                musicIcon.textContent = '🔊';
+                localStorage.setItem('musicPlaying', 'playing');
+            } else {
+                music.pause();
+                musicIcon.textContent = '🔇';
+                localStorage.setItem('musicPlaying', 'paused');
+            }
+        });
+    </script>
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+    </style>
 </body>
 </html>
