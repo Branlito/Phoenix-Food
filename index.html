@@ -269,6 +269,54 @@
             font-size: 2rem;
         }
 
+        .share-btn {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .share-btn span {
+            font-size: 2rem;
+        }
+
+        .copy-notification {
+            position: fixed;
+            bottom: 180px;
+            right: 30px;
+            background: #06C167;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            z-index: 1001;
+            pointer-events: none;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -625,12 +673,52 @@
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Bouton de partage -->
+    <div class="share-btn" id="shareBtn">
+        <span>🔗</span>
+    </div>
+
+    <!-- Notification de copie -->
+    <div class="copy-notification" id="copyNotification">
+        ✓ Lien copié !
+    </div>
+
     <!-- Bouton de contrôle musique -->
     <div class="music-toggle" id="musicToggle">
         <span id="musicIcon">🔊</span>
     </div>
 
+    <!-- Boutons de partage réseaux sociaux -->
+    <div class="social-share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://phoenix-food.vercel.app" target="_blank" class="social-btn facebook-btn" title="Partager sur Facebook">
+            📘
+        </a>
+        <a href="https://wa.me/?text=Découvrez%20Phoenix%20Food%20-%20Les%20meilleurs%20tacos%20du%20Haillan%20!%20https://phoenix-food.vercel.app" target="_blank" class="social-btn whatsapp-btn" title="Partager sur WhatsApp">
+            💬
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" class="social-btn instagram-btn" title="Suivez-nous sur Instagram">
+            📷
+        </a>
+    </div>
+
     <script>
+        // Bouton de partage - Copier le lien
+        const shareBtn = document.getElementById('shareBtn');
+        const copyNotification = document.getElementById('copyNotification');
+        
+        shareBtn.addEventListener('click', () => {
+            const siteUrl = 'https://phoenix-food.vercel.app';
+            navigator.clipboard.writeText(siteUrl).then(() => {
+                // Afficher la notification
+                copyNotification.classList.add('show');
+                // Cacher après 2 secondes
+                setTimeout(() => {
+                    copyNotification.classList.remove('show');
+                }, 2000);
+            });
+        });
+
+        // Musique
         const music = document.getElementById('bgMusic');
         const musicToggle = document.getElementById('musicToggle');
         const musicIcon = document.getElementById('musicIcon');
