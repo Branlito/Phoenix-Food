@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avis Clients - Phoenix Food</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background-attachment: fixed;
+        }
+
+        header {
+            background: #333;
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .avis-hero {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem 4rem 2rem;
+        }
+
+        .avis-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+
+        .avis-hero p {
+            font-size: 1.3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: -3rem auto 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FF6B35;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #F7931E;
+            font-size: 1.2rem;
+        }
+
+        .review-date {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .review-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-author {
+            font-weight: bold;
+            color: #FF6B35;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .verified-badge {
+            background: #06C167;
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+        }
+
+        .music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .music-toggle span {
+            font-size: 2rem;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .avis-hero h1 { font-size: 2rem; }
+            .avis-hero p { font-size: 1.1rem; }
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.9rem; }
+            .reviews-grid { grid-template-columns: 1fr; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🔥 Phoenix Food</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="avis.html">Avis</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="avis-hero">
+        <h1>⭐ Avis de nos clients</h1>
+        <p>Découvrez ce qu'ils pensent de Phoenix Food</p>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number">4.8/5</div>
+            <div class="stat-label">Note moyenne</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Avis clients</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Recommandent</div>
+        </div>
+    </div>
+
+    <div class="reviews-container">
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 2 jours</div>
+                </div>
+                <p class="review-text">"Les meilleurs tacos du coin ! Les portions sont généreuses et tout est frais. Le Tacos 2 viandes est une tuerie, je recommande à 100% !"</p>
+                <div class="review-author">
+                    Sarah M.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 5 jours</div>
+                </div>
+                <p class="review-text">"Accueil au top, service rapide et les burgers sont excellents ! Le Burrata Burger est juste parfait. Je reviens très régulièrement."</p>
+                <div class="review-author">
+                    Thomas L.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 1 semaine</div>
+                </div>
+                <p class="review-text">"Livraison ultra rapide sur Uber Eats et toujours chaud ! Les frites sont croustillantes comme il faut. Mon resto préféré au Haillan."</p>
+                <div class="review-author">
+                    Marie D.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 1 semaine</div>
+                </div>
+                <p class="review-text">"Rapport qualité-prix imbattable ! Les paninis sont délicieux et bien garnis. L'équipe est très sympa, ambiance conviviale."</p>
+                <div class="review-author">
+                    Karim B.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 2 semaines</div>
+                </div>
+                <p class="review-text">"Une vraie découverte ! Le Kebab est succulent et les sauces maison sont exceptionnelles. Je recommande vivement ce restaurant."</p>
+                <div class="review-author">
+                    Laura P.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 2 semaines</div>
+                </div>
+                <p class="review-text">"Parfait pour un repas en famille ! Le menu enfant est top et les desserts sont délicieux. Prix très corrects, nous reviendrons c'est sûr !"</p>
+                <div class="review-author">
+                    Antoine R.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 3 semaines</div>
+                </div>
+                <p class="review-text">"Meilleur fast-food de la région ! J'adore les tacos 3 viandes et le gratin au four. Toujours bien servi, jamais déçu."</p>
+                <div class="review-author">
+                    Julien M.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 3 semaines</div>
+                </div>
+                <p class="review-text">"Service impeccable ! Commande prise rapidement, plats préparés devant nous. Le Hurricane's Burger est une tuerie absolue !"</p>
+                <div class="review-author">
+                    Camille T.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 1 mois</div>
+                </div>
+                <p class="review-text">"Enfin un resto qui ne lésine pas sur les portions ! Les sauces sont délicieuses et faites maison. Le meilleur rapport qualité/prix du Haillan."</p>
+                <div class="review-author">
+                    Rachid K.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 1 mois</div>
+                </div>
+                <p class="review-text">"Je commande régulièrement sur Uber Eats et c'est toujours parfait ! Emballage soigné, plats chauds et très bons. Merci Phoenix Food !"</p>
+                <div class="review-author">
+                    Léa B.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 1 mois</div>
+                </div>
+                <p class="review-text">"Équipe très accueillante et souriante. Les bowls sont délicieux et bien garnis. Je reviens chaque semaine pour ma pause déjeuner !"</p>
+                <div class="review-author">
+                    David N.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="review-date">Il y a 1 mois</div>
+                </div>
+                <p class="review-text">"Excellent choix de paninis ! Le panini saumon est mon préféré. Ingrédients frais et pain croustillant. Je recommande vivement."</p>
+                <div class="review-author">
+                    Nadia H.
+                    <span class="verified-badge">✓ Vérifié</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Phoenix Food - Tous droits réservés</p>
+        <p>Le Haillan, Nouvelle-Aquitaine</p>
+    </footer>
+
+    <!-- Musique d'ambiance -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Bouton de contrôle musique -->
+    <div class="music-toggle" id="musicToggle">
+        <span id="musicIcon">🔊</span>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+        
+        music.volume = 0.3;
+        
+        const musicState = localStorage.getItem('musicPlaying');
+        const musicTime = localStorage.getItem('musicTime');
+        
+        if (musicTime) {
+            music.currentTime = parseFloat(musicTime);
+        }
+        
+        function startMusic() {
+            music.play().then(() => {
+                musicIcon.textContent = '🔊';
+                localStorage.setItem('musicPlaying', 'playing');
+            }).catch(() => {
+                musicToggle.style.animation = 'pulse 1s infinite';
+            });
+        }
+        
+        window.addEventListener('load', () => {
+            if (musicState === 'paused') {
+                musicIcon.textContent = '🔇';
+            } else {
+                startMusic();
+            }
+        });
+        
+        let firstInteraction = true;
+        document.addEventListener('click', () => {
+            if (firstInteraction && music.paused && musicState !== 'paused') {
+                startMusic();
+                firstInteraction = false;
+            }
+        }, { once: true });
+        
+        setInterval(() => {
+            if (!music.paused) {
+                localStorage.setItem('musicTime', music.currentTime);
+                localStorage.setItem('musicPlaying', 'playing');
+            }
+        }, 1000);
+        
+        musicToggle.addEventListener('click', () => {
+            musicToggle.style.animation = 'none';
+            if (music.paused) {
+                music.play();
+                musicIcon.textContent = '🔊';
+                localStorage.setItem('musicPlaying', 'playing');
+            } else {
+                music.pause();
+                musicIcon.textContent = '🔇';
+                localStorage.setItem('musicPlaying', 'paused');
+            }
+        });
+    </script>
+</body>
+</html>
