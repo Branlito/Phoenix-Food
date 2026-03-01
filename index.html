@@ -149,11 +149,34 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
 
         .menu-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(255, 107, 53, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .menu-item h3 {
@@ -325,6 +348,7 @@
                     <div class="price">8,00€</div>
                 </div>
                 <div class="menu-item">
+                    <span class="badge">🔥 Coup de cœur</span>
                     <h3>Tacos 2 Viandes</h3>
                     <div class="price">9,00€</div>
                 </div>
@@ -343,6 +367,7 @@
             <h3 class="category-title">🥙 Menu Sandwich</h3>
             <div class="menu-grid">
                 <div class="menu-item">
+                    <span class="badge">🔥 Coup de cœur</span>
                     <h3>Kebab</h3>
                     <div class="price">8,50€</div>
                 </div>
@@ -440,6 +465,7 @@
                     <div class="price">9,00€</div>
                 </div>
                 <div class="menu-item">
+                    <span class="badge">🔥 Coup de cœur</span>
                     <h3>Crusty/Bowl 2 Viandes</h3>
                     <div class="price">10,00€</div>
                 </div>
@@ -504,6 +530,7 @@
             <h3 class="category-title">🍟 Accompagnements</h3>
             <div class="menu-grid">
                 <div class="menu-item">
+                    <span class="badge">🔥 Coup de cœur</span>
                     <h3>Frites</h3>
                     <p>S : 3€ | M : 4€ | L : 5€</p>
                 </div>
