@@ -189,7 +189,125 @@
             color: #F7931E;
             font-size: 1.3rem;
             font-weight: bold;
-            margin: 1rem 0;
+            margin: 1rem 0 0.3rem 0;
+        }
+
+        .price-menu {
+            color: #27ae60;
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .price-menu span {
+            font-size: 0.85rem;
+            font-weight: normal;
+            color: #555;
+        }
+
+        /* Bouton suppléments */
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-supplements {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-supplements:hover {
+            background: #219a52;
+            transform: scale(1.05);
+        }
+
+        .supplements-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            z-index: 9999;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .supplements-popup.active {
+            display: block;
+        }
+
+        .supplements-popup h4 {
+            color: #FF6B35;
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            border-bottom: 2px solid #F7931E;
+            padding-bottom: 0.5rem;
+        }
+
+        .supplements-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .supplement-tag {
+            background: #f0f9f4;
+            border: 1px solid #27ae60;
+            color: #27ae60;
+            padding: 0.4rem 0.9rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+
+        .supplements-close {
+            display: block;
+            margin: 1.5rem auto 0;
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 0.6rem 2rem;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .supplements-close:hover {
+            background: #e55a2b;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+        }
+
+        .overlay.active {
+            display: block;
         }
 
         .info-grid {
@@ -351,222 +469,297 @@
     <section id="menu">
         <h2>Notre Menu</h2>
         
+        <!-- BURGER -->
         <div class="menu-category">
-            <h3 class="category-title">🍔 Menu Burger</h3>
+            <div class="category-header">
+                <h3 class="category-title" style="margin:0; border:none;">🍔 Menu Burger</h3>
+                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+            </div>
+            <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Fish Burger</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Cheeseburger</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Double Cheese Burger</h3>
                     <div class="price">8,00€</div>
+                    <div class="price-menu">🥤 Menu : 9,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Svensk Burger</h3>
                     <p>Saumon, bacon</p>
                     <div class="price">9,00€</div>
+                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Chicken Boca Burger</h3>
                     <div class="price">8,00€</div>
+                    <div class="price-menu">🥤 Menu : 9,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Hurricane's Burger</h3>
                     <p>2 steaks, bacon, cheddar</p>
                     <div class="price">11,00€</div>
+                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Burrata Burger</h3>
                     <p>2 steaks, oignon caramélisé, poivron confit, burrata, cheddar, potatos farcis</p>
                     <div class="price">11,00€</div>
+                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
                 </div>
             </div>
         </div>
 
+        <!-- TACOS -->
         <div class="menu-category">
-            <h3 class="category-title">🌮 Menu Tacos</h3>
+            <div class="category-header">
+                <h3 class="category-title" style="margin:0; border:none;">🌮 Menu Tacos</h3>
+                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+            </div>
+            <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <p style="text-align: center; margin-bottom: 1rem; font-style: italic;">Viandes au choix : Viande hachée, kefta, tenders, nuggets, falafel, mex kefta, kebab, poulet, merguez, saumon, cordon bleu</p>
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Tacos 1 Viande</h3>
                     <div class="price">8,00€</div>
+                    <div class="price-menu">🥤 Menu : 9,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Tacos 2 Viandes</h3>
                     <div class="price">9,00€</div>
+                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Tacos 3 Viandes</h3>
                     <div class="price">11,00€</div>
+                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Tacos 4 Viandes</h3>
                     <div class="price">12,00€</div>
+                    <div class="price-menu">🥤 Menu : 13,00€ <span>boisson incluse</span></div>
                 </div>
             </div>
         </div>
 
+        <!-- SANDWICH -->
         <div class="menu-category">
-            <h3 class="category-title">🥙 Menu Sandwich</h3>
+            <div class="category-header">
+                <h3 class="category-title" style="margin:0; border:none;">🥙 Menu Sandwich</h3>
+                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+            </div>
+            <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Kebab</h3>
                     <div class="price">8,50€</div>
+                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Boca Fuego</h3>
                     <p>Poulet tex mex</p>
                     <div class="price">8,50€</div>
+                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Boca Frio</h3>
                     <p>Poulet curry</p>
                     <div class="price">8,50€</div>
+                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Bocaorlente Eu</h3>
                     <p>Kefta, merguez</p>
                     <div class="price">8,50€</div>
+                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Boca Phoenix</h3>
                     <p>Steak, merguez, œuf</p>
                     <div class="price">9,50€</div>
+                    <div class="price-menu">🥤 Menu : 10,50€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Boca Burrata</h3>
                     <p>Steak, poulet, burrata</p>
                     <div class="price">9,50€</div>
+                    <div class="price-menu">🥤 Menu : 10,50€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Bocamericain</h3>
                     <div class="price">8,50€</div>
+                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Bocawrap</h3>
                     <div class="price">8,50€</div>
+                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
                 </div>
             </div>
         </div>
 
+        <!-- PANINI -->
         <div class="menu-category">
-            <h3 class="category-title">🥖 Menu Panini</h3>
+            <div class="category-header">
+                <h3 class="category-title" style="margin:0; border:none;">🥖 Menu Panini</h3>
+                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+            </div>
+            <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Panini 3 Fromages</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Panini Steak Haché</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Poulet</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Poulet Tex Mex</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Poulet Curry</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Kefta</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Saumon</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Merguez</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
             </div>
         </div>
 
+        <!-- ASSIETTES & BOWLS -->
         <div class="menu-category">
-            <h3 class="category-title">🍽️ Assiettes & Bowls</h3>
+            <div class="category-header">
+                <h3 class="category-title" style="margin:0; border:none;">🍽️ Assiettes & Bowls</h3>
+                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+            </div>
+            <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Assiette 1 Viande</h3>
                     <div class="price">9,00€</div>
+                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Assiette 2 Viandes</h3>
                     <div class="price">10,00€</div>
+                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Assiette 3 Viandes</h3>
                     <div class="price">11,00€</div>
+                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Crusty/Bowl 1 Viande</h3>
                     <div class="price">9,00€</div>
+                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Crusty/Bowl 2 Viandes</h3>
                     <div class="price">10,00€</div>
+                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Crusty/Bowl 3 Viandes</h3>
                     <div class="price">11,00€</div>
+                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Poulet Crusty</h3>
                     <div class="price">10,00€</div>
+                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
                 </div>
             </div>
         </div>
 
+        <!-- HUMMER -->
         <div class="menu-category">
-            <h3 class="category-title">🔥 Menu Hummer</h3>
+            <div class="category-header">
+                <h3 class="category-title" style="margin:0; border:none;">🔥 Menu Hummer</h3>
+                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+            </div>
+            <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Hummer H1</h3>
                     <div class="price">7,00€</div>
+                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Hummer H2</h3>
                     <div class="price">9,00€</div>
+                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Hummer H3</h3>
                     <div class="price">10,00€</div>
+                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
                 </div>
             </div>
         </div>
 
+        <!-- GRATIN AU FOUR -->
         <div class="menu-category">
-            <h3 class="category-title">🧀 Gratin Au Four</h3>
+            <div class="category-header">
+                <h3 class="category-title" style="margin:0; border:none;">🧀 Gratin Au Four</h3>
+                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+            </div>
+            <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Frites, Poulet Mariné</h3>
                     <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
                     <div class="price">10,00€</div>
+                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Poulet Steak</h3>
                     <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
                     <div class="price">11,00€</div>
+                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
                 </div>
             </div>
         </div>
 
+        <!-- MENU ENFANT (pas de prix menu) -->
         <div class="menu-category">
             <h3 class="category-title">👶 Menu Enfant</h3>
             <div class="menu-grid">
@@ -579,8 +772,13 @@
             </div>
         </div>
 
+        <!-- ACCOMPAGNEMENTS (pas de prix menu) -->
         <div class="menu-category">
-            <h3 class="category-title">🍟 Accompagnements</h3>
+            <div class="category-header">
+                <h3 class="category-title" style="margin:0; border:none;">🍟 Accompagnements</h3>
+                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+            </div>
+            <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
@@ -623,33 +821,40 @@
             </div>
         </div>
 
+        <!-- DESSERTS -->
         <div class="menu-category">
             <h3 class="category-title">🍰 Desserts</h3>
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Tarte Aux Noix</h3>
                     <div class="price">3,00€</div>
+                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Tarte Citron</h3>
                     <div class="price">3,00€</div>
+                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Tarte Pana Cotta</h3>
                     <div class="price">3,00€</div>
+                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Tiramisu</h3>
                     <div class="price">3,00€</div>
+                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Nutella</h3>
                     <div class="price">3,00€</div>
+                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
                 </div>
             </div>
         </div>
 
+        <!-- BOISSONS -->
         <div class="menu-category">
             <h3 class="category-title">🥤 Boissons</h3>
             <div class="menu-grid">
@@ -674,65 +879,91 @@
         <p>Le Haillan, Nouvelle-Aquitaine</p>
     </footer>
 
-    <!-- Musique d'ambiance -->
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closeSupplements()"></div>
+
+    <!-- Popup suppléments -->
+    <div class="supplements-popup" id="supplementsPopup">
+        <h4>➕ Suppléments disponibles</h4>
+        <div class="supplements-list">
+            <span class="supplement-tag">Tzatziki</span>
+            <span class="supplement-tag">Guacamole</span>
+            <span class="supplement-tag">Oignon confit</span>
+            <span class="supplement-tag">Poivron confit</span>
+            <span class="supplement-tag">Oignon frit</span>
+            <span class="supplement-tag">Olive</span>
+            <span class="supplement-tag">Maïs</span>
+            <span class="supplement-tag">Feta</span>
+            <span class="supplement-tag">Cheddar</span>
+            <span class="supplement-tag">Raclette</span>
+            <span class="supplement-tag">Reblochon</span>
+            <span class="supplement-tag">Chèvre</span>
+            <span class="supplement-tag">Mozzarella</span>
+            <span class="supplement-tag">Cantal</span>
+            <span class="supplement-tag">Comté</span>
+            <span class="supplement-tag">Champignon</span>
+            <span class="supplement-tag">Kiri</span>
+            <span class="supplement-tag">Lardon</span>
+            <span class="supplement-tag">Bacon</span>
+            <span class="supplement-tag">Œuf</span>
+            <span class="supplement-tag">Miel</span>
+        </div>
+        <button class="supplements-close" onclick="closeSupplements()">Fermer</button>
+    </div>
+
+    <script>
+        function openSupplements() {
+            document.getElementById('supplementsPopup').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+        function closeSupplements() {
+            document.getElementById('supplementsPopup').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+    </script>
+
     <audio id="bgMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Bouton de partage -->
     <div class="share-btn" id="shareBtn">
         <span>🔗</span>
     </div>
 
-    <!-- Notification de copie -->
     <div class="copy-notification" id="copyNotification">
         ✓ Lien copié !
     </div>
 
-    <!-- Bouton de contrôle musique -->
     <div class="music-toggle" id="musicToggle">
         <span id="musicIcon">🔊</span>
     </div>
 
-    <!-- Boutons de partage réseaux sociaux -->
     <div class="social-share">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://phoenix-food.vercel.app" target="_blank" class="social-btn facebook-btn" title="Partager sur Facebook">
-            📘
-        </a>
-        <a href="https://wa.me/?text=Découvrez%20Phoenix%20Food%20-%20Les%20meilleurs%20tacos%20du%20Haillan%20!%20https://phoenix-food.vercel.app" target="_blank" class="social-btn whatsapp-btn" title="Partager sur WhatsApp">
-            💬
-        </a>
-        <a href="https://www.instagram.com/" target="_blank" class="social-btn instagram-btn" title="Suivez-nous sur Instagram">
-            📷
-        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://phoenix-food.vercel.app" target="_blank" class="social-btn facebook-btn" title="Partager sur Facebook">📘</a>
+        <a href="https://wa.me/?text=Découvrez%20Phoenix%20Food%20-%20Les%20meilleurs%20tacos%20du%20Haillan%20!%20https://phoenix-food.vercel.app" target="_blank" class="social-btn whatsapp-btn" title="Partager sur WhatsApp">💬</a>
+        <a href="https://www.instagram.com/" target="_blank" class="social-btn instagram-btn" title="Suivez-nous sur Instagram">📷</a>
     </div>
 
     <script>
-        // Bouton de partage - Copier le lien
         const shareBtn = document.getElementById('shareBtn');
         const copyNotification = document.getElementById('copyNotification');
         
         shareBtn.addEventListener('click', () => {
             const siteUrl = 'https://phoenix-food.vercel.app';
             navigator.clipboard.writeText(siteUrl).then(() => {
-                // Afficher la notification
                 copyNotification.classList.add('show');
-                // Cacher après 2 secondes
                 setTimeout(() => {
                     copyNotification.classList.remove('show');
                 }, 2000);
             });
         });
 
-        // Musique
         const music = document.getElementById('bgMusic');
         const musicToggle = document.getElementById('musicToggle');
         const musicIcon = document.getElementById('musicIcon');
         
-        // Démarrer la musique automatiquement à volume bas
-        music.volume = 0.3; // 30% du volume
+        music.volume = 0.3;
         
-        // Récupérer l'état et la position de la musique depuis localStorage
         const musicState = localStorage.getItem('musicPlaying');
         const musicTime = localStorage.getItem('musicTime');
         
@@ -740,19 +971,15 @@
             music.currentTime = parseFloat(musicTime);
         }
         
-        // Fonction pour démarrer la musique
         function startMusic() {
             music.play().then(() => {
                 musicIcon.textContent = '🔊';
                 localStorage.setItem('musicPlaying', 'playing');
             }).catch(() => {
-                // Si autoplay bloqué, faire clignoter le bouton
                 musicToggle.style.animation = 'pulse 1s infinite';
-                console.log('Cliquez sur le bouton 🔊 pour lancer la musique');
             });
         }
         
-        // Tenter de lancer la musique automatiquement
         window.addEventListener('load', () => {
             if (musicState === 'paused') {
                 musicIcon.textContent = '🔇';
@@ -761,7 +988,6 @@
             }
         });
         
-        // Détecter la première interaction de l'utilisateur
         let firstInteraction = true;
         document.addEventListener('click', () => {
             if (firstInteraction && music.paused && musicState !== 'paused') {
@@ -770,7 +996,6 @@
             }
         }, { once: true });
         
-        // Sauvegarder la position toutes les secondes
         setInterval(() => {
             if (!music.paused) {
                 localStorage.setItem('musicTime', music.currentTime);
@@ -778,7 +1003,6 @@
             }
         }, 1000);
         
-        // Toggle musique
         musicToggle.addEventListener('click', () => {
             musicToggle.style.animation = 'none';
             if (music.paused) {
