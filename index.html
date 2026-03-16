@@ -416,6 +416,36 @@
             z-index: 1000;
         }
 
+        .call-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 110px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+            animation: pulse-call 2s infinite;
+        }
+
+        .call-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        @keyframes pulse-call {
+            0%   { box-shadow: 0 0 0 0 rgba(39,174,96,0.5); }
+            70%  { box-shadow: 0 0 0 12px rgba(39,174,96,0); }
+            100% { box-shadow: 0 0 0 0 rgba(39,174,96,0); }
+        }
+
         .share-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 20px rgba(0,0,0,0.4);
@@ -977,6 +1007,10 @@
     <div class="copy-notification" id="copyNotification">
         ✓ Lien copié !
     </div>
+
+    <a href="tel:0988051884" class="call-btn" title="Appeler Phoenix Food">
+        📞
+    </a>
 
     <div class="music-toggle" id="musicToggle">
         <span id="musicIcon">🔊</span>
