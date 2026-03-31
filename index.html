@@ -220,11 +220,413 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .menu-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        /* ── Bouton ajouter au panier ── */
+        .btn-cart {
+            margin-top: auto;
+            padding-top: 1rem;
+            background: transparent;
+            color: #27ae60;
+            border: 1.5px solid #27ae60;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        .btn-cart::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: #27ae60;
+            transition: left 0.25s ease;
+            z-index: 0;
+        }
+        .btn-cart:hover::before { left: 0; }
+        .btn-cart:hover { color: white; }
+        .btn-cart span { position: relative; z-index: 1; }
+
+        /* ── Icône panier flottant ── */
+        .cart-float {
+            position: fixed;
+            bottom: 110px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+            transition: all 0.3s;
+            z-index: 1000;
+            font-size: 1.6rem;
+        }
+        .cart-float:hover { transform: scale(1.1); }
+        .cart-float.hidden { display: none; }
+
+        .cart-badge {
+            position: absolute;
+            top: -4px; right: -4px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 22px; height: 22px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pop 0.3s ease;
+        }
+        @keyframes pop {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* ── Panneau panier ── */
+        .cart-panel {
+            position: fixed;
+            top: 0; right: -420px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+        }
+        .cart-panel.open { right: 0; }
+
+        .cart-panel-header {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            padding: 1.5rem 1.5rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-panel-header h2 { font-size: 1.3rem; margin: 0; }
+        .cart-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .cart-close:hover { background: rgba(255,255,255,0.35); }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 1.5rem;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #999;
+            font-size: 1rem;
+        }
+        .cart-empty span { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 0.5rem;
+        }
+        .cart-item-name {
+            flex: 1;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .qty-btn {
+            width: 28px; height: 28px;
+            border: 1.5px solid #FF6B35;
+            background: white;
+            color: #FF6B35;
+            border-radius: 50%;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+        .qty-btn:hover { background: #FF6B35; color: white; }
+        .qty-num {
+            font-weight: 700;
+            font-size: 0.95rem;
+            min-width: 20px;
+            text-align: center;
+        }
+        .cart-item-price {
+            font-weight: 700;
+            color: #FF6B35;
+            font-size: 0.95rem;
+            min-width: 55px;
+            text-align: right;
+        }
+
+        .cart-footer {
+            padding: 1.2rem 1.5rem;
+            border-top: 2px solid #f0f0f0;
+            background: #fafafa;
+        }
+        .cart-total-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .cart-total-label { font-size: 1rem; color: #666; }
+        .cart-total-amount {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #FF6B35;
+        }
+        .btn-commander {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+        }
+        .btn-commander:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+        }
+        .btn-vider {
+            width: 100%;
+            background: transparent;
+            color: #999;
+            border: none;
+            padding: 0.6rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .btn-vider:hover { color: #e74c3c; }
+
+        /* ── Page commande ── */
+        .order-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .order-overlay.open { display: flex; }
+
+        .order-modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 560px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+
+        .order-modal-header {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .order-modal-header h2 { margin: 0; font-size: 1.3rem; }
+        .order-modal-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .order-modal-close:hover { background: rgba(255,255,255,0.35); }
+
+        .order-modal-body { padding: 2rem; }
+
+        .order-recap {
+            background: #fdf5f0;
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .order-recap h3 { font-size: 0.9rem; color: #999; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
+        .order-recap-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.35rem 0;
+            font-size: 0.95rem;
+            color: #333;
+            border-bottom: 1px dashed #e8d5c8;
+        }
+        .order-recap-item:last-child { border: none; }
+        .order-recap-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 2px solid #FF6B35;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #FF6B35;
+        }
+
+        .order-form label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 0.4rem;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+        .order-form input, .order-form textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            outline: none;
+            font-family: inherit;
+        }
+        .order-form input:focus, .order-form textarea:focus {
+            border-color: #FF6B35;
+        }
+        .order-form textarea { resize: vertical; min-height: 80px; }
+
+        .order-info-box {
+            background: #fff8e1;
+            border-left: 4px solid #F7931E;
+            padding: 0.8rem 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-top: 1.2rem;
+            font-size: 0.88rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .btn-valider {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            border: none;
+            padding: 1.1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+        }
+        .btn-valider:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,53,0.4); }
+
+        /* ── Confirmation ── */
+        .confirm-screen {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            display: none;
+        }
+        .confirm-screen.show { display: block; }
+        .confirm-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .confirm-screen h2 { color: #27ae60; font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .confirm-screen p { color: #666; font-size: 1rem; line-height: 1.6; }
+        .confirm-time {
+            display: inline-block;
+            background: #fdf5f0;
+            color: #FF6B35;
+            font-weight: 800;
+            font-size: 1.3rem;
+            padding: 0.6rem 2rem;
+            border-radius: 50px;
+            margin: 1rem 0;
+        }
+
+        /* ── Notification ajout ── */
+        .add-notif {
+            position: fixed;
+            bottom: 180px;
+            left: 30px;
+            background: #27ae60;
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 1001;
+            pointer-events: none;
+        }
+        .add-notif.show { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 480px) {
+            .cart-panel { width: 100%; right: -100%; }
+            .order-modal { border-radius: 12px; }
         }
 
         .badge {
@@ -325,11 +727,46 @@
 
         .supplements-popup h4 {
             color: #FF6B35;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin-bottom: 1.2rem;
             text-align: center;
             border-bottom: 2px solid #F7931E;
             padding-bottom: 0.5rem;
+        }
+
+        .supp-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .supp-check {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            cursor: pointer;
+        }
+
+        .supp-check input[type="checkbox"] {
+            display: none;
+        }
+
+        .supp-check span {
+            background: #f0f9f4;
+            border: 1.5px solid #27ae60;
+            color: #27ae60;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .supp-check input:checked + span {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
         }
 
         .supplements-list {
@@ -580,42 +1017,56 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Fish Burger</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Fish Burger', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Cheeseburger</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Cheeseburger', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Double Cheese Burger</h3>
-                    <div class="price">8,00€</div>
-                    <div class="price-menu">🥤 Menu : 9,00€ <span>boisson incluse</span></div>
+                    <div class="price">8,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Double Cheese Burger', 8.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 9,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Svensk Burger</h3>
                     <p>Saumon, bacon</p>
-                    <div class="price">9,00€</div>
-                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
+                    <div class="price">9,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Svensk Burger', 9.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Chicken Boca Burger</h3>
-                    <div class="price">8,00€</div>
-                    <div class="price-menu">🥤 Menu : 9,00€ <span>boisson incluse</span></div>
+                    <div class="price">8,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Chicken Boca Burger', 8.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 9,00€</div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Hurricane's Burger</h3>
                     <p>2 steaks, bacon, cheddar</p>
-                    <div class="price">11,00€</div>
-                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
+                    <div class="price">11,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Hurricane\'s Burger', 11.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Burrata Burger</h3>
                     <p>2 steaks, oignon caramélisé, poivron confit, burrata, cheddar, potatos farcis</p>
-                    <div class="price">11,00€</div>
-                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
+                    <div class="price">11,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Burrata Burger', 11.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
             </div>
         </div>
@@ -632,24 +1083,32 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Tacos 1 Viande</h3>
-                    <div class="price">8,00€</div>
-                    <div class="price-menu">🥤 Menu : 9,00€ <span>boisson incluse</span></div>
+                    <div class="price">8,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Tacos 1 Viande', 8.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 9,00€</div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Tacos 2 Viandes</h3>
-                    <div class="price">9,00€</div>
-                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
+                    <div class="price">9,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Tacos 2 Viandes', 9.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tacos 3 Viandes</h3>
-                    <div class="price">11,00€</div>
-                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
+                    <div class="price">11,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Tacos 3 Viandes', 11.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tacos 4 Viandes</h3>
-                    <div class="price">12,00€</div>
-                    <div class="price-menu">🥤 Menu : 13,00€ <span>boisson incluse</span></div>
+                    <div class="price">12,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Tacos 4 Viandes', 12.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 13,00€</div>
                 </div>
             </div>
         </div>
@@ -665,48 +1124,64 @@
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Kebab</h3>
-                    <div class="price">8,50€</div>
-                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
+                    <div class="price">8,50€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Kebab', 8.50)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Boca Fuego</h3>
                     <p>Poulet tex mex</p>
-                    <div class="price">8,50€</div>
-                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
+                    <div class="price">8,50€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Fuego', 8.50)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Boca Frio</h3>
                     <p>Poulet curry</p>
-                    <div class="price">8,50€</div>
-                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
+                    <div class="price">8,50€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Frio', 8.50)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Bocaorlente Eu</h3>
                     <p>Kefta, merguez</p>
-                    <div class="price">8,50€</div>
-                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
+                    <div class="price">8,50€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Bocaorlente Eu', 8.50)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Boca Phoenix</h3>
                     <p>Steak, merguez, œuf</p>
-                    <div class="price">9,50€</div>
-                    <div class="price-menu">🥤 Menu : 10,50€ <span>boisson incluse</span></div>
+                    <div class="price">9,50€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Phoenix', 9.50)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 10,50€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Boca Burrata</h3>
                     <p>Steak, poulet, burrata</p>
-                    <div class="price">9,50€</div>
-                    <div class="price-menu">🥤 Menu : 10,50€ <span>boisson incluse</span></div>
+                    <div class="price">9,50€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Burrata', 9.50)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 10,50€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Bocamericain</h3>
-                    <div class="price">8,50€</div>
-                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
+                    <div class="price">8,50€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Bocamericain', 8.50)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Bocawrap</h3>
-                    <div class="price">8,50€</div>
-                    <div class="price-menu">🥤 Menu : 9,50€ <span>boisson incluse</span></div>
+                    <div class="price">8,50€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Bocawrap', 8.50)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
             </div>
         </div>
@@ -721,44 +1196,60 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Panini 3 Fromages</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini 3 Fromages', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Panini Steak Haché</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Steak Haché', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Poulet</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Poulet', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Poulet Tex Mex</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Poulet Tex Mex', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Poulet Curry</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Poulet Curry', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Kefta</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Kefta', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Saumon</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Saumon', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Merguez</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Merguez', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
             </div>
         </div>
@@ -773,39 +1264,53 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Assiette 1 Viande</h3>
-                    <div class="price">9,00€</div>
-                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
+                    <div class="price">9,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Assiette 1 Viande', 9.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Assiette 2 Viandes</h3>
-                    <div class="price">10,00€</div>
-                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
+                    <div class="price">10,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Assiette 2 Viandes', 10.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Assiette 3 Viandes</h3>
-                    <div class="price">11,00€</div>
-                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
+                    <div class="price">11,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Assiette 3 Viandes', 11.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Crusty/Bowl 1 Viande</h3>
-                    <div class="price">9,00€</div>
-                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
+                    <div class="price">9,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Crusty/Bowl 1 Viande', 9.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Crusty/Bowl 2 Viandes</h3>
-                    <div class="price">10,00€</div>
-                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
+                    <div class="price">10,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Crusty/Bowl 2 Viandes', 10.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Crusty/Bowl 3 Viandes</h3>
-                    <div class="price">11,00€</div>
-                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
+                    <div class="price">11,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Crusty/Bowl 3 Viandes', 11.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Poulet Crusty</h3>
-                    <div class="price">10,00€</div>
-                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
+                    <div class="price">10,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Poulet Crusty', 10.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
             </div>
         </div>
@@ -820,19 +1325,25 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Hummer H1</h3>
-                    <div class="price">7,00€</div>
-                    <div class="price-menu">🥤 Menu : 8,00€ <span>boisson incluse</span></div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Hummer H1', 7.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Hummer H2</h3>
-                    <div class="price">9,00€</div>
-                    <div class="price-menu">🥤 Menu : 10,00€ <span>boisson incluse</span></div>
+                    <div class="price">9,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Hummer H2', 9.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Hummer H3</h3>
-                    <div class="price">10,00€</div>
-                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
+                    <div class="price">10,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Hummer H3', 10.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
             </div>
         </div>
@@ -849,14 +1360,18 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Frites, Poulet Mariné</h3>
                     <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
-                    <div class="price">10,00€</div>
-                    <div class="price-menu">🥤 Menu : 11,00€ <span>boisson incluse</span></div>
+                    <div class="price">10,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Frites, Poulet Mariné', 10.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Poulet Steak</h3>
                     <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
-                    <div class="price">11,00€</div>
-                    <div class="price-menu">🥤 Menu : 12,00€ <span>boisson incluse</span></div>
+                    <div class="price">11,00€
+                    <button class="btn-cart" onclick="ajouterAuPanier('Poulet Steak', 11.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
             </div>
         </div>
@@ -869,7 +1384,9 @@
                     <h3>Menu Enfant</h3>
                     <p>Au choix : Cheeseburger, Nuggets 6Pc ou Mini Tacos</p>
                     <p>+ Frites + Boisson Capri Sun + Cadeau Surprise</p>
-                    <div class="price">7,00€</div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Menu Enfant', 7.00)">+ Ajouter</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -886,39 +1403,57 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Frites</h3>
                     <p>S : 3€ | M : 4€ | L : 5€</p>
+                    <div class="price">3,00€</div>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Frites S', 3.00)">+ Ajouter</button>
                 </div>
                 <div class="menu-item">
                     <h3>Kebab</h3>
                     <p>S : 4€ | M : 5€ | L : 8€</p>
+                    <div class="price">4,00€</div>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Kebab S', 4.00)">+ Ajouter</button>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Chicken Wings 6Pc</h3>
-                    <div class="price">7,00€</div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Chicken Wings 6Pc', 7.00)">+ Ajouter</button>
+                </div>
                 </div>
                 <div class="menu-item">
                     <h3>Crevettes Panées 6Pc</h3>
-                    <div class="price">7,00€</div>
+                    <div class="price">7,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Crevettes Panées 6Pc', 7.00)">+ Ajouter</button>
+                </div>
                 </div>
                 <div class="menu-item">
                     <h3>Jalapeños 6Pc</h3>
-                    <div class="price">6,00€</div>
+                    <div class="price">6,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Jalapeños 6Pc', 6.00)">+ Ajouter</button>
+                </div>
                 </div>
                 <div class="menu-item">
                     <h3>Camembert Panés 6Pc</h3>
-                    <div class="price">6,00€</div>
+                    <div class="price">6,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Camembert Panés 6Pc', 6.00)">+ Ajouter</button>
+                </div>
                 </div>
                 <div class="menu-item">
                     <h3>Potatoes 6Pc</h3>
-                    <div class="price">6,00€</div>
+                    <div class="price">6,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Potatoes 6Pc', 6.00)">+ Ajouter</button>
+                </div>
                 </div>
                 <div class="menu-item">
                     <h3>Stick Mozzarella 6Pc</h3>
-                    <div class="price">6,00€</div>
+                    <div class="price">6,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Stick Mozzarella 6Pc', 6.00)">+ Ajouter</button>
+                </div>
                 </div>
                 <div class="menu-item">
                     <h3>Oignons Rings 6Pc</h3>
-                    <div class="price">6,00€</div>
+                    <div class="price">6,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Oignons Rings 6Pc', 6.00)">+ Ajouter</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -929,29 +1464,39 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Tarte Aux Noix</h3>
-                    <div class="price">3,00€</div>
-                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
+                    <div class="price">3,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Tarte Aux Noix', 3.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Tarte Citron</h3>
-                    <div class="price">3,00€</div>
-                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
+                    <div class="price">3,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Tarte Citron', 3.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tarte Pana Cotta</h3>
-                    <div class="price">3,00€</div>
-                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
+                    <div class="price">3,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Tarte Pana Cotta', 3.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tiramisu</h3>
-                    <div class="price">3,00€</div>
-                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
+                    <div class="price">3,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Tiramisu', 3.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Nutella</h3>
-                    <div class="price">3,00€</div>
-                    <div class="price-menu">🥤 Menu : 4,00€ <span>boisson incluse</span></div>
+                    <div class="price">3,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Panini Nutella', 3.00)">+ Ajouter</button>
+                </div>
+                    <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
             </div>
         </div>
@@ -962,15 +1507,21 @@
             <div class="menu-grid">
                 <div class="menu-item">
                     <h3>Canette 33 Cl</h3>
-                    <div class="price">1,50€</div>
+                    <div class="price">1,50€
+                    <button class="btn-cart" onclick="ajouterDirect('Canette 33 Cl', 1.50)">+ Ajouter</button>
+                </div>
                 </div>
                 <div class="menu-item">
                     <h3>Bouteille 1,25 L</h3>
-                    <div class="price">3,00€</div>
+                    <div class="price">3,00€
+                    <button class="btn-cart" onclick="ajouterDirect('Bouteille 1,25 L', 3.00)">+ Ajouter</button>
+                </div>
                 </div>
                 <div class="menu-item">
                     <h3>Bouteille 1,5 L</h3>
-                    <div class="price">3,50€</div>
+                    <div class="price">3,50€
+                    <button class="btn-cart" onclick="ajouterDirect('Bouteille 1,5 L', 3.50)">+ Ajouter</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -987,61 +1538,163 @@
         </div>
     </footer>
 
+    <!-- Bouton panier flottant -->
+    <div class="cart-float hidden" id="cartFloat" onclick="ouvrirPanier()">
+        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6d2/emoji.svg" style="width:30px;height:30px;filter:brightness(10);">
+        <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+
+    <!-- Notification ajout -->
+    <div class="add-notif" id="addNotif">✓ Ajouté au panier</div>
+
+    <!-- Panneau panier -->
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-panel-header">
+            <h2><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6d2/emoji.svg" style="width:26px;height:26px;vertical-align:middle;margin-right:6px;filter:brightness(10);"> Mon panier</h2>
+            <button class="cart-close" onclick="fermerPanier()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <span>🛒</span>
+                Votre panier est vide
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-total-line">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount" id="cartTotal">0,00 €</span>
+            </div>
+            <button class="btn-commander" onclick="ouvrirCommande()">Passer la commande</button>
+            <button class="btn-vider" onclick="viderPanier()">Vider le panier</button>
+        </div>
+    </div>
+
+    <!-- Modale de commande -->
+    <div class="order-overlay" id="orderOverlay">
+        <div class="order-modal">
+            <div class="order-modal-header">
+                <h2>Votre commande</h2>
+                <button class="order-modal-close" onclick="fermerCommande()">✕</button>
+            </div>
+
+            <!-- Formulaire -->
+            <div class="order-modal-body" id="orderForm">
+                <div class="order-recap">
+                    <h3>Récapitulatif</h3>
+                    <div id="orderRecapItems"></div>
+                    <div class="order-recap-total">
+                        <span>Total</span>
+                        <span id="orderRecapTotal"></span>
+                    </div>
+                </div>
+
+                <div class="order-form">
+                    <label>Votre prénom *</label>
+                    <input type="text" id="fieldPrenom" placeholder="Ex : Malaury" required>
+
+                    <label>Numéro de téléphone *</label>
+                    <input type="tel" id="fieldTel" placeholder="Ex : 06 00 00 00 00" required>
+
+                    <label>Remarques / personnalisation</label>
+                    <textarea id="fieldNote" placeholder="Ex : sans oignon, sauce à part..."></textarea>
+                </div>
+
+                <div class="order-info-box">
+                    📍 Retrait sur place uniquement — <strong>116 Avenue Pasteur, Le Haillan</strong><br>
+                    ⏱️ Temps de préparation estimé : <strong>15–20 min</strong>
+                </div>
+
+                <button class="btn-valider" onclick="validerCommande()">Confirmer ma commande</button>
+            </div>
+
+            <!-- Confirmation -->
+            <div class="confirm-screen" id="confirmScreen">
+                <div class="confirm-icon">✅</div>
+                <h2>Commande envoyée !</h2>
+                <p>Merci <strong id="confirmPrenom"></strong>, votre commande a bien été reçue.</p>
+                <div class="confirm-time">⏱️ 15 – 20 min</div>
+                <p>Venez récupérer votre commande au<br><strong>116 Avenue Pasteur, Le Haillan</strong></p>
+                <p style="margin-top:1rem; color:#aaa; font-size:0.85rem;">Un SMS de confirmation vous sera envoyé.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Overlay -->
     <div class="overlay" id="overlay" onclick="closeSupplements()"></div>
 
     <!-- Popup suppléments -->
+    <!-- Modale suppléments + ajout panier -->
     <div class="supplements-popup" id="supplementsPopup">
-        <h4>➕ Suppléments disponibles</h4>
-        <div style="text-align: center; background: #fff5ee; border: 2px solid #FF6B35; border-radius: 10px; padding: 0.6rem 1rem; margin-bottom: 1.2rem; color: #FF6B35; font-weight: bold; font-size: 1rem;">
+        <h4 id="suppTitle">Personnaliser votre article</h4>
+        <div style="text-align:center; background:#fff5ee; border:2px solid #FF6B35; border-radius:10px; padding:0.6rem 1rem; margin-bottom:1.2rem; color:#FF6B35; font-weight:bold; font-size:1rem;">
             +1,00€ par supplément
         </div>
 
-        <div style="margin-bottom: 1rem;">
-            <div style="font-weight: bold; color: #FF6B35; margin-bottom: 0.5rem;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9c0/emoji.svg" style="width:28px;height:28px;vertical-align:middle;margin-right:6px;filter:drop-shadow(1px 2px 3px rgba(0,0,0,0.25));"> Fromages</div>
-            <div class="supplements-list">
-                <span class="supplement-tag">Cheddar</span>
-                <span class="supplement-tag">Raclette</span>
-                <span class="supplement-tag">Reblochon</span>
-                <span class="supplement-tag">Chèvre</span>
-                <span class="supplement-tag">Mozzarella</span>
-                <span class="supplement-tag">Cantal</span>
-                <span class="supplement-tag">Comté</span>
-                <span class="supplement-tag">Feta</span>
-                <span class="supplement-tag">Kiri</span>
+        <!-- Fromages -->
+        <div style="margin-bottom:1rem;">
+            <div style="font-weight:bold; color:#FF6B35; margin-bottom:0.5rem;">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9c0/emoji.svg" style="width:24px;height:24px;vertical-align:middle;margin-right:6px;filter:drop-shadow(1px 2px 3px rgba(0,0,0,0.25));"> Fromages
+            </div>
+            <div class="supp-checkboxes">
+                <label class="supp-check"><input type="checkbox" value="Cheddar"><span>Cheddar</span></label>
+                <label class="supp-check"><input type="checkbox" value="Raclette"><span>Raclette</span></label>
+                <label class="supp-check"><input type="checkbox" value="Reblochon"><span>Reblochon</span></label>
+                <label class="supp-check"><input type="checkbox" value="Chèvre"><span>Chèvre</span></label>
+                <label class="supp-check"><input type="checkbox" value="Mozzarella"><span>Mozzarella</span></label>
+                <label class="supp-check"><input type="checkbox" value="Cantal"><span>Cantal</span></label>
+                <label class="supp-check"><input type="checkbox" value="Comté"><span>Comté</span></label>
+                <label class="supp-check"><input type="checkbox" value="Feta"><span>Feta</span></label>
+                <label class="supp-check"><input type="checkbox" value="Kiri"><span>Kiri</span></label>
             </div>
         </div>
 
-        <div style="margin-bottom: 1rem;">
-            <div style="font-weight: bold; color: #FF6B35; margin-bottom: 0.5rem;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f969/emoji.svg" style="width:28px;height:28px;vertical-align:middle;margin-right:6px;filter:drop-shadow(1px 2px 3px rgba(0,0,0,0.25));"> Viandes & Protéines</div>
-            <div class="supplements-list">
-                <span class="supplement-tag">Lardon</span>
-                <span class="supplement-tag">Bacon</span>
-                <span class="supplement-tag">Œuf</span>
+        <!-- Viandes -->
+        <div style="margin-bottom:1rem;">
+            <div style="font-weight:bold; color:#FF6B35; margin-bottom:0.5rem;">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f969/emoji.svg" style="width:24px;height:24px;vertical-align:middle;margin-right:6px;filter:drop-shadow(1px 2px 3px rgba(0,0,0,0.25));"> Viandes & Protéines
+            </div>
+            <div class="supp-checkboxes">
+                <label class="supp-check"><input type="checkbox" value="Lardon"><span>Lardon</span></label>
+                <label class="supp-check"><input type="checkbox" value="Bacon"><span>Bacon</span></label>
+                <label class="supp-check"><input type="checkbox" value="Œuf"><span>Œuf</span></label>
             </div>
         </div>
 
-        <div style="margin-bottom: 1rem;">
-            <div style="font-weight: bold; color: #FF6B35; margin-bottom: 0.5rem;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9c5/emoji.svg" style="width:28px;height:28px;vertical-align:middle;margin-right:6px;filter:drop-shadow(1px 2px 3px rgba(0,0,0,0.25));"> Légumes & Garnitures</div>
-            <div class="supplements-list">
-                <span class="supplement-tag">Oignon confit</span>
-                <span class="supplement-tag">Poivron confit</span>
-                <span class="supplement-tag">Oignon frit</span>
-                <span class="supplement-tag">Olive</span>
-                <span class="supplement-tag">Maïs</span>
-                <span class="supplement-tag">Champignon</span>
+        <!-- Légumes -->
+        <div style="margin-bottom:1rem;">
+            <div style="font-weight:bold; color:#FF6B35; margin-bottom:0.5rem;">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9c5/emoji.svg" style="width:24px;height:24px;vertical-align:middle;margin-right:6px;filter:drop-shadow(1px 2px 3px rgba(0,0,0,0.25));"> Légumes & Garnitures
+            </div>
+            <div class="supp-checkboxes">
+                <label class="supp-check"><input type="checkbox" value="Oignon confit"><span>Oignon confit</span></label>
+                <label class="supp-check"><input type="checkbox" value="Poivron confit"><span>Poivron confit</span></label>
+                <label class="supp-check"><input type="checkbox" value="Oignon frit"><span>Oignon frit</span></label>
+                <label class="supp-check"><input type="checkbox" value="Olive"><span>Olive</span></label>
+                <label class="supp-check"><input type="checkbox" value="Maïs"><span>Maïs</span></label>
+                <label class="supp-check"><input type="checkbox" value="Champignon"><span>Champignon</span></label>
             </div>
         </div>
 
-        <div style="margin-bottom: 1rem;">
-            <div style="font-weight: bold; color: #FF6B35; margin-bottom: 0.5rem;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f36f/emoji.svg" style="width:28px;height:28px;vertical-align:middle;margin-right:6px;filter:drop-shadow(1px 2px 3px rgba(0,0,0,0.25));"> Sauces & Spreads</div>
-            <div class="supplements-list">
-                <span class="supplement-tag">Tzatziki</span>
-                <span class="supplement-tag">Guacamole</span>
-                <span class="supplement-tag">Miel</span>
+        <!-- Sauces -->
+        <div style="margin-bottom:1rem;">
+            <div style="font-weight:bold; color:#FF6B35; margin-bottom:0.5rem;">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f36f/emoji.svg" style="width:24px;height:24px;vertical-align:middle;margin-right:6px;filter:drop-shadow(1px 2px 3px rgba(0,0,0,0.25));"> Sauces & Spreads
+            </div>
+            <div class="supp-checkboxes">
+                <label class="supp-check"><input type="checkbox" value="Tzatziki"><span>Tzatziki</span></label>
+                <label class="supp-check"><input type="checkbox" value="Guacamole"><span>Guacamole</span></label>
+                <label class="supp-check"><input type="checkbox" value="Miel"><span>Miel</span></label>
             </div>
         </div>
-        <button class="supplements-close" onclick="closeSupplements()">Fermer</button>
+
+        <!-- Total + boutons -->
+        <div style="background:#fdf5f0; border-radius:10px; padding:0.8rem 1rem; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center;">
+            <span style="color:#666; font-size:0.95rem;">Total article</span>
+            <span id="suppTotal" style="color:#FF6B35; font-weight:800; font-size:1.2rem;">0,00 €</span>
+        </div>
+
+        <button class="supplements-close" style="background:linear-gradient(135deg,#FF6B35,#F7931E); margin-bottom:0.5rem;" onclick="confirmerAjout()">Ajouter au panier</button>
+        <button class="supplements-close" style="background:#aaa;" onclick="closeSupplements()">Annuler</button>
     </div>
 
     <script>
@@ -1052,6 +1705,182 @@
                 menu.scrollIntoView({ behavior: 'smooth' });
             }, 100);
         }
+
+        /* ══════════════ PANIER ══════════════ */
+        let panier = [];
+        let articleEnCours = null; // { nom, prix }
+
+        function ajouterDirect(nom, prix) {
+            const existant = panier.find(i => i.nom === nom);
+            if (existant) {
+                existant.qte++;
+            } else {
+                panier.push({ nom, prix, qte: 1 });
+            }
+            mettreAJourUI();
+            afficherNotif();
+        }
+
+        function ajouterAuPanier(nom, prix) {
+            // Ouvrir la modale suppléments
+            articleEnCours = { nom, prix };
+            document.getElementById('suppTitle').textContent = nom;
+            // Reset toutes les cases
+            document.querySelectorAll('#supplementsPopup input[type="checkbox"]').forEach(cb => cb.checked = false);
+            mettreAJourSuppTotal();
+            openSupplements();
+        }
+
+        function mettreAJourSuppTotal() {
+            if (!articleEnCours) return;
+            const nbCoches = document.querySelectorAll('#supplementsPopup input[type="checkbox"]:checked').length;
+            const total = articleEnCours.prix + nbCoches;
+            document.getElementById('suppTotal').textContent = total.toFixed(2).replace('.', ',') + ' €';
+        }
+
+        function confirmerAjout() {
+            if (!articleEnCours) return;
+            const supps = Array.from(document.querySelectorAll('#supplementsPopup input[type="checkbox"]:checked')).map(cb => cb.value);
+            const nbSupps = supps.length;
+            const prixFinal = articleEnCours.prix + nbSupps;
+            const nomFinal = supps.length > 0
+                ? articleEnCours.nom + ' (+' + supps.join(', ') + ')'
+                : articleEnCours.nom;
+
+            const existant = panier.find(i => i.nom === nomFinal);
+            if (existant) {
+                existant.qte++;
+            } else {
+                panier.push({ nom: nomFinal, prix: prixFinal, qte: 1 });
+            }
+            closeSupplements();
+            articleEnCours = null;
+            mettreAJourUI();
+            afficherNotif();
+        }
+
+        function changerQte(nom, delta) {
+            const idx = panier.findIndex(i => i.nom === nom);
+            if (idx === -1) return;
+            panier[idx].qte += delta;
+            if (panier[idx].qte <= 0) panier.splice(idx, 1);
+            mettreAJourUI();
+        }
+
+        function viderPanier() {
+            panier = [];
+            mettreAJourUI();
+        }
+
+        function totalPanier() {
+            return panier.reduce((s, i) => s + i.prix * i.qte, 0);
+        }
+
+        function nbArticles() {
+            return panier.reduce((s, i) => s + i.qte, 0);
+        }
+
+        function formatPrix(n) {
+            return n.toFixed(2).replace('.', ',') + ' €';
+        }
+
+        function mettreAJourUI() {
+            const nb = nbArticles();
+            const cartFloat = document.getElementById('cartFloat');
+            const cartBadge = document.getElementById('cartBadge');
+            const cartItems = document.getElementById('cartItems');
+            const cartFooter = document.getElementById('cartFooter');
+            const cartTotal = document.getElementById('cartTotal');
+
+            // Bouton flottant
+            if (nb > 0) {
+                cartFloat.classList.remove('hidden');
+                cartBadge.textContent = nb;
+            } else {
+                cartFloat.classList.add('hidden');
+                fermerPanier();
+            }
+
+            // Contenu du panier
+            if (panier.length === 0) {
+                cartItems.innerHTML = '<div class="cart-empty"><span>🛒</span>Votre panier est vide</div>';
+                cartFooter.style.display = 'none';
+            } else {
+                cartItems.innerHTML = panier.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-name">${item.nom}</div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn" onclick="changerQte('${item.nom}', -1)">−</button>
+                            <span class="qty-num">${item.qte}</span>
+                            <button class="qty-btn" onclick="changerQte('${item.nom}', 1)">+</button>
+                        </div>
+                        <div class="cart-item-price">${formatPrix(item.prix * item.qte)}</div>
+                    </div>
+                `).join('');
+                cartTotal.textContent = formatPrix(totalPanier());
+                cartFooter.style.display = 'block';
+            }
+        }
+
+        function afficherNotif() {
+            const notif = document.getElementById('addNotif');
+            notif.classList.add('show');
+            setTimeout(() => notif.classList.remove('show'), 1800);
+        }
+
+        function ouvrirPanier() {
+            document.getElementById('cartPanel').classList.add('open');
+        }
+
+        function fermerPanier() {
+            document.getElementById('cartPanel').classList.remove('open');
+        }
+
+        function ouvrirCommande() {
+            fermerPanier();
+            // Remplir récap
+            const recapItems = document.getElementById('orderRecapItems');
+            const recapTotal = document.getElementById('orderRecapTotal');
+            recapItems.innerHTML = panier.map(item => `
+                <div class="order-recap-item">
+                    <span>${item.qte}× ${item.nom}</span>
+                    <span>${formatPrix(item.prix * item.qte)}</span>
+                </div>
+            `).join('');
+            recapTotal.textContent = formatPrix(totalPanier());
+            document.getElementById('orderForm').style.display = 'block';
+            document.getElementById('confirmScreen').classList.remove('show');
+            document.getElementById('orderOverlay').classList.add('open');
+        }
+
+        function fermerCommande() {
+            document.getElementById('orderOverlay').classList.remove('open');
+        }
+
+        function validerCommande() {
+            const prenom = document.getElementById('fieldPrenom').value.trim();
+            const tel = document.getElementById('fieldTel').value.trim();
+            if (!prenom || !tel) {
+                alert('Merci de renseigner votre prénom et votre numéro de téléphone.');
+                return;
+            }
+            // Afficher confirmation
+            document.getElementById('confirmPrenom').textContent = prenom;
+            document.getElementById('orderForm').style.display = 'none';
+            document.getElementById('confirmScreen').classList.add('show');
+            // Vider le panier
+            panier = [];
+            mettreAJourUI();
+        }
+
+        // Fermer panier en cliquant à côté
+        document.addEventListener('click', (e) => {
+            const panel = document.getElementById('cartPanel');
+            const float = document.getElementById('cartFloat');
+            if (panel.classList.contains('open') && !panel.contains(e.target) && !float.contains(e.target)) {
+                fermerPanier();
+            }
+        });
         function openSupplements() {
             document.getElementById('supplementsPopup').classList.add('active');
             document.getElementById('overlay').classList.add('active');
@@ -1059,7 +1888,13 @@
         function closeSupplements() {
             document.getElementById('supplementsPopup').classList.remove('active');
             document.getElementById('overlay').classList.remove('active');
+            articleEnCours = null;
         }
+
+        // Mise à jour du total en temps réel
+        document.querySelectorAll('#supplementsPopup input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', mettreAJourSuppTotal);
+        });
     </script>
 
     <audio id="bgMusic" loop>
