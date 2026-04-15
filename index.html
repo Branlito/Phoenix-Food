@@ -450,6 +450,84 @@
         }
         .btn-vider:hover { color: #e74c3c; }
 
+        /* ── Modale choix viandes/sauces ── */
+        .choix-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 4000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .choix-overlay.open { display: flex; }
+        .choix-modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 520px;
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+        }
+        .choix-modal-header {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white;
+            padding: 1.2rem 1.5rem;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .choix-modal-header h2 { margin: 0; font-size: 1.15rem; }
+        .choix-modal-close {
+            background: rgba(255,255,255,0.2);
+            border: none; color: white;
+            width: 32px; height: 32px;
+            border-radius: 50%; font-size: 1rem;
+            cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
+        }
+        .choix-modal-body { padding: 1.5rem; }
+        .choix-section-title {
+            font-weight: 700; color: #FF6B35;
+            font-size: 0.9rem; text-transform: uppercase;
+            letter-spacing: 0.08em; margin-bottom: 0.8rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .choix-required {
+            background: #FF6B35; color: white;
+            font-size: 0.7rem; padding: 0.15rem 0.5rem;
+            border-radius: 10px; font-weight: 600;
+        }
+        .choix-counter { margin-left: auto; font-size: 0.82rem; color: #999; font-weight: 500; }
+        .choix-counter.ok { color: #27ae60; font-weight: 700; }
+        .choix-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .choix-tag {
+            padding: 0.4rem 0.9rem; border-radius: 20px;
+            font-size: 0.88rem; font-weight: 500; cursor: pointer;
+            transition: all 0.2s; user-select: none;
+            border: 1.5px solid #ddd; color: #555; background: #f9f9f9;
+        }
+        .choix-tag.selected-viande { background: #FF6B35; border-color: #FF6B35; color: white; }
+        .choix-tag.selected-sauce  { background: #27ae60; border-color: #27ae60; color: white; }
+        .choix-tag.disabled { opacity: 0.4; cursor: not-allowed; }
+        .choix-erreur {
+            color: #e74c3c; font-size: 0.85rem; font-weight: 600;
+            text-align: center; margin-bottom: 0.8rem; display: none;
+        }
+        .choix-erreur.show { display: block; }
+        .btn-suivant {
+            width: 100%; background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: white; border: none; padding: 1rem; border-radius: 8px;
+            font-size: 1rem; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; cursor: pointer; transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+        }
+        .btn-suivant:hover { transform: translateY(-2px); }
+
         /* ── Page commande ── */
         .order-overlay {
             position: fixed;
@@ -1084,7 +1162,7 @@
                 <div class="menu-item">
                     <h3>Tacos 1 Viande</h3>
                     <div class="price">8,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Tacos 1 Viande', 8.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 1 Viande', 8.00, 1)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,00€</div>
                 </div>
@@ -1092,21 +1170,21 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Tacos 2 Viandes</h3>
                     <div class="price">9,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Tacos 2 Viandes', 9.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 2 Viandes', 9.00, 2)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tacos 3 Viandes</h3>
                     <div class="price">11,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Tacos 3 Viandes', 11.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 3 Viandes', 11.00, 3)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tacos 4 Viandes</h3>
                     <div class="price">12,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Tacos 4 Viandes', 12.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 4 Viandes', 12.00, 4)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 13,00€</div>
                 </div>
@@ -1267,28 +1345,28 @@
                 <div class="menu-item">
                     <h3>Assiette 1 Viande</h3>
                     <div class="price">9,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Assiette 1 Viande', 9.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Assiette 1 Viande', 9.00, 1)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Assiette 2 Viandes</h3>
                     <div class="price">10,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Assiette 2 Viandes', 10.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Assiette 2 Viandes', 10.00, 2)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Assiette 3 Viandes</h3>
                     <div class="price">11,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Assiette 3 Viandes', 11.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Assiette 3 Viandes', 11.00, 3)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Crusty/Bowl 1 Viande</h3>
                     <div class="price">9,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Crusty/Bowl 1 Viande', 9.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Crusty/Bowl 1 Viande', 9.00, 1)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
@@ -1296,14 +1374,14 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Crusty/Bowl 2 Viandes</h3>
                     <div class="price">10,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Crusty/Bowl 2 Viandes', 10.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Crusty/Bowl 2 Viandes', 10.00, 2)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Crusty/Bowl 3 Viandes</h3>
                     <div class="price">11,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Crusty/Bowl 3 Viandes', 11.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Crusty/Bowl 3 Viandes', 11.00, 3)">+ Ajouter</button>
                 </div>
                     <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
@@ -1625,6 +1703,63 @@
     <div class="overlay" id="overlay" onclick="closeSupplements()"></div>
 
     <!-- Popup suppléments -->
+    <!-- Modale choix viandes & sauces -->
+    <div class="choix-overlay" id="choixOverlay">
+        <div class="choix-modal">
+            <div class="choix-modal-header">
+                <h2 id="choixTitre">Choisissez vos viandes</h2>
+                <button class="choix-modal-close" onclick="fermerChoix()">✕</button>
+            </div>
+            <div class="choix-modal-body">
+
+                <!-- Viandes -->
+                <div class="choix-section-title">
+                    <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f969/emoji.svg" style="width:22px;height:22px;vertical-align:middle;">
+                    Viandes
+                    <span class="choix-required" id="choixViandeBadge">Choisir X</span>
+                    <span class="choix-counter" id="choixViandeCounter">0 / X</span>
+                </div>
+                <div class="choix-grid" id="choixViandesGrid">
+                    <span class="choix-tag" onclick="toggleViande(this)">Viande hachée</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Kefta</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Tenders</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Nuggets</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Falafel</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Mex Kefta</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Kebab</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Poulet</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Merguez</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Saumon</span>
+                    <span class="choix-tag" onclick="toggleViande(this)">Cordon Bleu</span>
+                </div>
+
+                <!-- Sauces -->
+                <div class="choix-section-title">
+                    <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f36f/emoji.svg" style="width:22px;height:22px;vertical-align:middle;">
+                    Sauce
+                    <span class="choix-required">Choisir 1</span>
+                    <span class="choix-counter" id="choixSauceCounter">0 / 1</span>
+                </div>
+                <div class="choix-grid" id="choixSaucesGrid">
+                    <span class="choix-tag" onclick="toggleSauce(this)">Ketchup</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Algérienne</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Samouraï</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Blanche</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Mayonnaise</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Biggy</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Barbecue</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Andalouse</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Brésil</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Harissa</span>
+                    <span class="choix-tag" onclick="toggleSauce(this)">Fromagère</span>
+                </div>
+
+                <div class="choix-erreur" id="choixErreur"></div>
+                <button class="btn-suivant" onclick="validerChoixViandesSauces()">Continuer → Suppléments</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modale suppléments + ajout panier -->
     <div class="supplements-popup" id="supplementsPopup">
         <h4 id="suppTitle">Personnaliser votre article</h4>
@@ -1723,6 +1858,107 @@
             afficherNotif();
         }
 
+        /* ══════ CHOIX VIANDES & SAUCES ══════ */
+        let nbViandesRequis = 1;
+
+        function ouvrirChoixViandes(nom, prix, nbViandes) {
+            articleEnCours = { nom, prix };
+            nbViandesRequis = nbViandes;
+
+            // Titre
+            document.getElementById('choixTitre').textContent = nom;
+
+            // Badge et compteur viandes
+            document.getElementById('choixViandeBadge').textContent = 'Choisir ' + nbViandes;
+            document.getElementById('choixViandeCounter').textContent = '0 / ' + nbViandes;
+            document.getElementById('choixViandeCounter').classList.remove('ok');
+
+            // Reset sauces
+            document.getElementById('choixSauceCounter').textContent = '0 / 1';
+            document.getElementById('choixSauceCounter').classList.remove('ok');
+
+            // Reset tous les tags
+            document.querySelectorAll('#choixViandesGrid .choix-tag').forEach(t => {
+                t.classList.remove('selected-viande', 'disabled');
+            });
+            document.querySelectorAll('#choixSaucesGrid .choix-tag').forEach(t => {
+                t.classList.remove('selected-sauce', 'disabled');
+            });
+
+            document.getElementById('choixErreur').classList.remove('show');
+            document.getElementById('choixOverlay').classList.add('open');
+        }
+
+        function toggleViande(el) {
+            if (el.classList.contains('disabled')) return;
+            const selected = document.querySelectorAll('#choixViandesGrid .choix-tag.selected-viande');
+
+            if (el.classList.contains('selected-viande')) {
+                el.classList.remove('selected-viande');
+                // Réactiver tous
+                document.querySelectorAll('#choixViandesGrid .choix-tag').forEach(t => t.classList.remove('disabled'));
+            } else {
+                if (selected.length >= nbViandesRequis) return;
+                el.classList.add('selected-viande');
+                const newSelected = document.querySelectorAll('#choixViandesGrid .choix-tag.selected-viande');
+                if (newSelected.length >= nbViandesRequis) {
+                    document.querySelectorAll('#choixViandesGrid .choix-tag:not(.selected-viande)').forEach(t => t.classList.add('disabled'));
+                }
+            }
+            const nb = document.querySelectorAll('#choixViandesGrid .choix-tag.selected-viande').length;
+            const counter = document.getElementById('choixViandeCounter');
+            counter.textContent = nb + ' / ' + nbViandesRequis;
+            counter.classList.toggle('ok', nb === nbViandesRequis);
+        }
+
+        function toggleSauce(el) {
+            if (el.classList.contains('disabled')) return;
+            const alreadySelected = el.classList.contains('selected-sauce');
+            // Désélectionner toutes
+            document.querySelectorAll('#choixSaucesGrid .choix-tag').forEach(t => {
+                t.classList.remove('selected-sauce', 'disabled');
+            });
+            if (!alreadySelected) {
+                el.classList.add('selected-sauce');
+            }
+            const nb = document.querySelectorAll('#choixSaucesGrid .choix-tag.selected-sauce').length;
+            const counter = document.getElementById('choixSauceCounter');
+            counter.textContent = nb + ' / 1';
+            counter.classList.toggle('ok', nb === 1);
+        }
+
+        function validerChoixViandesSauces() {
+            const viandes = Array.from(document.querySelectorAll('#choixViandesGrid .choix-tag.selected-viande')).map(t => t.textContent);
+            const sauces  = Array.from(document.querySelectorAll('#choixSaucesGrid .choix-tag.selected-sauce')).map(t => t.textContent);
+            const erreur  = document.getElementById('choixErreur');
+
+            if (viandes.length < nbViandesRequis) {
+                erreur.textContent = '⚠️ Veuillez choisir ' + nbViandesRequis + ' viande' + (nbViandesRequis > 1 ? 's' : '') + '.';
+                erreur.classList.add('show');
+                return;
+            }
+            if (sauces.length < 1) {
+                erreur.textContent = '⚠️ Veuillez choisir une sauce.';
+                erreur.classList.add('show');
+                return;
+            }
+
+            // Stocker les choix dans articleEnCours
+            articleEnCours.viandes = viandes;
+            articleEnCours.sauces  = sauces;
+
+            fermerChoix();
+            // Ouvrir les suppléments
+            document.getElementById('suppTitle').textContent = articleEnCours.nom;
+            document.querySelectorAll('#supplementsPopup input[type="checkbox"]').forEach(cb => cb.checked = false);
+            mettreAJourSuppTotal();
+            openSupplements();
+        }
+
+        function fermerChoix() {
+            document.getElementById('choixOverlay').classList.remove('open');
+        }
+
         function ajouterAuPanier(nom, prix) {
             // Ouvrir la modale suppléments
             articleEnCours = { nom, prix };
@@ -1745,8 +1981,17 @@
             const supps = Array.from(document.querySelectorAll('#supplementsPopup input[type="checkbox"]:checked')).map(cb => cb.value);
             const nbSupps = supps.length;
             const prixFinal = articleEnCours.prix + nbSupps;
-            const nomFinal = supps.length > 0
-                ? articleEnCours.nom + ' (+' + supps.join(', ') + ')'
+
+            let details = [];
+            if (articleEnCours.viandes && articleEnCours.viandes.length > 0)
+                details.push(articleEnCours.viandes.join(' + '));
+            if (articleEnCours.sauces && articleEnCours.sauces.length > 0)
+                details.push('Sauce : ' + articleEnCours.sauces.join(', '));
+            if (supps.length > 0)
+                details.push('Suppl. : ' + supps.join(', '));
+
+            const nomFinal = details.length > 0
+                ? articleEnCours.nom + ' (' + details.join(' | ') + ')'
                 : articleEnCours.nom;
 
             const existant = panier.find(i => i.nom === nomFinal);
