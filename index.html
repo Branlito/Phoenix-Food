@@ -1736,8 +1736,8 @@
                 <!-- Sauces -->
                 <div class="choix-section-title">
                     <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f36f/emoji.svg" style="width:22px;height:22px;vertical-align:middle;">
-                    Sauce
-                    <span class="choix-required">Choisir 1</span>
+                    Sauces
+                    <span class="choix-required" id="choixSauceBadge">1 min</span>
                     <span class="choix-counter" id="choixSauceCounter">0 / 1</span>
                 </div>
                 <div class="choix-grid" id="choixSaucesGrid">
@@ -1870,82 +1870,90 @@
             panierSauces  = {};
             document.getElementById('choixTitre').textContent = nom;
             document.getElementById('choixViandeBadge').textContent = 'Choisir ' + nbViandes;
-            document.getElementById('choixSauceCounter').textContent = '0 / 1';
-            document.getElementById('choixSauceCounter').classList.remove('ok');
+            document.getElementById('choixSauceBadge').textContent = '1 à ' + nbViandes;
             document.getElementById('choixErreur').classList.remove('show');
             renderViandesGrid();
             renderSaucesGrid();
             document.getElementById('choixOverlay').classList.add('open');
         }
 
+        function totalPanierViandes() {
+            return Object.values(panierViandes).reduce((a, b) => a + b, 0);
+        }
+        function totalPanierSauces() {
+            return Object.values(panierSauces).reduce((a, b) => a + b, 0);
+        }
+
         function renderViandesGrid() {
-            const total = Object.values(panierViandes).reduce((a, b) => a + b, 0);
+            const total = totalPanierViandes();
             const counter = document.getElementById('choixViandeCounter');
             counter.textContent = total + ' / ' + nbViandesRequis;
             counter.classList.toggle('ok', total === nbViandesRequis);
+
             const viandes = ['Viande hachée','Kefta','Tenders','Nuggets','Falafel','Mex Kefta','Kebab','Poulet','Merguez','Saumon','Cordon Bleu'];
-            const grid = document.getElementById('choixViandesGrid');
-            grid.innerHTML = viandes.map(v => {
+            document.getElementById('choixViandesGrid').innerHTML = viandes.map(v => {
                 const qty = panierViandes[v] || 0;
                 const plein = total >= nbViandesRequis;
-                const canAdd = !plein;
                 return '<div style="display:flex;align-items:center;gap:6px;background:#f9f9f9;border:1.5px solid ' + (qty > 0 ? '#FF6B35' : '#ddd') + ';border-radius:20px;padding:4px 10px 4px 8px;transition:all 0.2s;">'
                     + '<button onclick="changerViande(\'' + v + '\', -1)" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:#FF6B35;line-height:1;padding:0;' + (qty === 0 ? 'opacity:0.3;pointer-events:none;' : '') + '">−</button>'
                     + '<span style="font-size:0.88rem;font-weight:' + (qty > 0 ? '700' : '500') + ';color:' + (qty > 0 ? '#FF6B35' : '#555') + ';min-width:90px;text-align:center;">' + v + (qty > 0 ? ' ×' + qty : '') + '</span>'
-                    + '<button onclick="changerViande(\'' + v + '\', 1)" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:#FF6B35;line-height:1;padding:0;' + (!canAdd && qty === 0 ? 'opacity:0.3;pointer-events:none;' : '') + '">+</button>'
+                    + '<button onclick="changerViande(\'' + v + '\', 1)" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:#FF6B35;line-height:1;padding:0;' + (plein ? 'opacity:0.3;pointer-events:none;' : '') + '">+</button>'
                     + '</div>';
             }).join('');
         }
 
         function changerViande(nom, delta) {
-            const total = Object.values(panierViandes).reduce((a, b) => a + b, 0);
-            if (delta > 0 && total >= nbViandesRequis) return;
+            if (delta > 0 && totalPanierViandes() >= nbViandesRequis) return;
             panierViandes[nom] = (panierViandes[nom] || 0) + delta;
             if (panierViandes[nom] <= 0) delete panierViandes[nom];
             renderViandesGrid();
         }
 
         function renderSaucesGrid() {
-            const total = Object.values(panierSauces).reduce((a, b) => a + b, 0);
+            const total = totalPanierSauces();
+            const max = nbViandesRequis;
             const counter = document.getElementById('choixSauceCounter');
-            counter.textContent = total + ' / 1';
-            counter.classList.toggle('ok', total === 1);
+            counter.textContent = total + ' / ' + max;
+            counter.classList.toggle('ok', total >= 1 && total <= max);
+
             const sauces = ['Ketchup','Algérienne','Samouraï','Blanche','Mayonnaise','Biggy','Barbecue','Andalouse','Brésil','Harissa','Fromagère'];
-            const grid = document.getElementById('choixSaucesGrid');
-            grid.innerHTML = sauces.map(s => {
-                const selected = panierSauces[s] === 1;
-                const plein = total >= 1;
-                return '<span onclick="toggleSauce(\'' + s + '\')" class="choix-tag ' + (selected ? 'selected-sauce' : '') + ' ' + (plein && !selected ? 'disabled' : '') + '">' + s + '</span>';
+            document.getElementById('choixSaucesGrid').innerHTML = sauces.map(s => {
+                const qty = panierSauces[s] || 0;
+                const plein = total >= max;
+                return '<div style="display:flex;align-items:center;gap:6px;background:#f9f9f9;border:1.5px solid ' + (qty > 0 ? '#27ae60' : '#ddd') + ';border-radius:20px;padding:4px 10px 4px 8px;transition:all 0.2s;">'
+                    + '<button onclick="changerSauce(\'' + s + '\', -1)" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:#27ae60;line-height:1;padding:0;' + (qty === 0 ? 'opacity:0.3;pointer-events:none;' : '') + '">−</button>'
+                    + '<span style="font-size:0.88rem;font-weight:' + (qty > 0 ? '700' : '500') + ';color:' + (qty > 0 ? '#27ae60' : '#555') + ';min-width:90px;text-align:center;">' + s + (qty > 0 ? ' ×' + qty : '') + '</span>'
+                    + '<button onclick="changerSauce(\'' + s + '\', 1)" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:#27ae60;line-height:1;padding:0;' + (plein ? 'opacity:0.3;pointer-events:none;' : '') + '">+</button>'
+                    + '</div>';
             }).join('');
         }
 
-        function toggleSauce(nom) {
-            if (panierSauces[nom]) {
-                delete panierSauces[nom];
-            } else {
-                const total = Object.values(panierSauces).reduce((a, b) => a + b, 0);
-                if (total >= 1) return;
-                panierSauces[nom] = 1;
-            }
+        function changerSauce(nom, delta) {
+            if (delta > 0 && totalPanierSauces() >= nbViandesRequis) return;
+            panierSauces[nom] = (panierSauces[nom] || 0) + delta;
+            if (panierSauces[nom] <= 0) delete panierSauces[nom];
             renderSaucesGrid();
         }
 
         function validerChoixViandesSauces() {
-            const totalViandes = Object.values(panierViandes).reduce((a, b) => a + b, 0);
-            const totalSauces  = Object.values(panierSauces).reduce((a, b) => a + b, 0);
+            const totalV = totalPanierViandes();
+            const totalS = totalPanierSauces();
             const erreur = document.getElementById('choixErreur');
-            if (totalViandes < nbViandesRequis) {
+
+            if (totalV < nbViandesRequis) {
                 erreur.textContent = '⚠️ Veuillez choisir ' + nbViandesRequis + ' viande' + (nbViandesRequis > 1 ? 's' : '') + '.';
                 erreur.classList.add('show'); return;
             }
-            if (totalSauces < 1) {
-                erreur.textContent = '⚠️ Veuillez choisir une sauce.';
+            if (totalS < 1) {
+                erreur.textContent = '⚠️ Veuillez choisir au moins 1 sauce (max ' + nbViandesRequis + ').';
                 erreur.classList.add('show'); return;
             }
+
             const viandesList = Object.entries(panierViandes).map(([v, q]) => q > 1 ? v + ' ×' + q : v);
-            const saucesList  = Object.keys(panierSauces);
+            const saucesList  = Object.entries(panierSauces).map(([s, q]) => q > 1 ? s + ' ×' + q : s);
             articleEnCours.viandes = viandesList;
             articleEnCours.sauces  = saucesList;
+
             fermerChoix();
             document.getElementById('suppTitle').textContent = articleEnCours.nom;
             document.querySelectorAll('#supplementsPopup input[type="checkbox"]').forEach(cb => cb.checked = false);
