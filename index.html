@@ -1969,12 +1969,28 @@
                 document.getElementById('enfantErreur').classList.add('show');
                 return;
             }
-            const nom = 'Menu Enfant – ' + choix.value + ' (Frites + Capri Sun + Cadeau)';
-            const existant = panier.find(i => i.nom === nom);
-            if (existant) { existant.qte++; } else { panier.push({ nom, prix: 7.00, qte: 1 }); }
             fermerMenuEnfant();
-            mettreAJourUI();
-            afficherNotif();
+
+            if (choix.value === 'Mini Tacos') {
+                // Ouvrir la sélection viandes/sauces comme un tacos 1 viande
+                articleEnCours = { nom: 'Menu Enfant – Mini Tacos (Frites + Capri Sun + Cadeau)', prix: 7.00 };
+                nbViandesRequis = 1;
+                panierViandes = {};
+                panierSauces  = {};
+                document.getElementById('choixTitre').textContent = 'Mini Tacos – Personnalisez';
+                document.getElementById('choixViandeBadge').textContent = 'Choisir 1';
+                document.getElementById('choixSauceBadge').textContent = '1 à 1';
+                document.getElementById('choixErreur').classList.remove('show');
+                renderViandesGrid();
+                renderSaucesGrid();
+                document.getElementById('choixOverlay').classList.add('open');
+            } else {
+                const nom = 'Menu Enfant – ' + choix.value + ' (Frites + Capri Sun + Cadeau)';
+                const existant = panier.find(i => i.nom === nom);
+                if (existant) { existant.qte++; } else { panier.push({ nom, prix: 7.00, qte: 1 }); }
+                mettreAJourUI();
+                afficherNotif();
+            }
         }
 
         /* ══════ CHOIX VIANDES & SAUCES ══════ */
