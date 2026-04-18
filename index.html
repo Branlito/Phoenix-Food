@@ -528,7 +528,41 @@
         }
         .btn-suivant:hover { transform: translateY(-2px); }
 
-        /* ── Menu Enfant options ── */
+        /* ── Options taille ── */
+        .taille-option {
+            flex: 1;
+            cursor: pointer;
+        }
+        .taille-option input[type="radio"] { display: none; }
+        .taille-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            padding: 1rem 0.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: all 0.2s;
+        }
+        .taille-label {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #555;
+        }
+        .taille-prix {
+            font-size: 0.82rem;
+            color: #999;
+            font-weight: 600;
+        }
+        .taille-option input:checked + .taille-content {
+            border-color: #FF6B35;
+            background: #fff5ee;
+        }
+        .taille-option input:checked + .taille-content .taille-label { color: #FF6B35; }
+        .taille-option input:checked + .taille-content .taille-prix  { color: #F7931E; }
+        .taille-content:hover { border-color: #FF6B35; background: #fff5ee; }
         .enfant-option {
             display: flex;
             align-items: center;
@@ -1515,13 +1549,13 @@
                     <h3>Frites</h3>
                     <p>S : 3€ | M : 4€ | L : 5€</p>
                     <div class="price">3,00€</div>
-                    <button class="btn-cart" onclick="ajouterAuPanier('Frites S', 3.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirFrites()">+ Ajouter</button>
                 </div>
                 <div class="menu-item">
                     <h3>Kebab</h3>
                     <p>S : 4€ | M : 5€ | L : 8€</p>
                     <div class="price">4,00€</div>
-                    <button class="btn-cart" onclick="ajouterAuPanier('Kebab S', 4.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirKebabAccomp()">+ Ajouter</button>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
@@ -1734,6 +1768,113 @@
     <div class="overlay" id="overlay" onclick="closeSupplements()"></div>
 
     <!-- Popup suppléments -->
+    <!-- Modale Frites -->
+    <div class="choix-overlay" id="fritesOverlay">
+        <div class="choix-modal" style="max-width:420px;">
+            <div class="choix-modal-header">
+                <h2><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f35f/emoji.svg" style="width:26px;height:26px;vertical-align:middle;filter:brightness(10);margin-right:6px;"> Frites</h2>
+                <button class="choix-modal-close" onclick="fermerFrites()">✕</button>
+            </div>
+            <div class="choix-modal-body">
+
+                <!-- Taille -->
+                <div class="choix-section-title">
+                    Taille
+                    <span class="choix-required">Obligatoire</span>
+                </div>
+                <div style="display:flex;gap:0.8rem;margin-bottom:1.5rem;">
+                    <label class="taille-option" id="frites-s">
+                        <input type="radio" name="fritesTaille" value="S" data-prix="3">
+                        <div class="taille-content">
+                            <span class="taille-label">S</span>
+                            <span class="taille-prix">3,00 €</span>
+                        </div>
+                    </label>
+                    <label class="taille-option" id="frites-m">
+                        <input type="radio" name="fritesTaille" value="M" data-prix="4">
+                        <div class="taille-content">
+                            <span class="taille-label">M</span>
+                            <span class="taille-prix">4,00 €</span>
+                        </div>
+                    </label>
+                    <label class="taille-option" id="frites-l">
+                        <input type="radio" name="fritesTaille" value="L" data-prix="5">
+                        <div class="taille-content">
+                            <span class="taille-label">L</span>
+                            <span class="taille-prix">5,00 €</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Sauce -->
+                <div class="choix-section-title">
+                    Sauce
+                    <span class="choix-required">Obligatoire</span>
+                </div>
+                <div class="choix-grid" style="margin-bottom:1.5rem;">
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Ketchup</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Algérienne</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Samouraï</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Blanche</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Mayonnaise</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Biggy</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Barbecue</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Andalouse</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Brésil</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Harissa</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Fromagère</span>
+                    <span class="choix-tag" onclick="toggleSauceFrites(this)">Nature</span>
+                </div>
+
+                <div class="choix-erreur" id="fritesErreur"></div>
+                <button class="btn-suivant" onclick="validerFrites()">Ajouter au panier</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale Kebab Accompagnement -->
+    <div class="choix-overlay" id="kebabAccompOverlay">
+        <div class="choix-modal" style="max-width:380px;">
+            <div class="choix-modal-header">
+                <h2>🥙 Kebab</h2>
+                <button class="choix-modal-close" onclick="fermerKebabAccomp()">✕</button>
+            </div>
+            <div class="choix-modal-body">
+
+                <div class="choix-section-title">
+                    Taille
+                    <span class="choix-required">Obligatoire</span>
+                </div>
+                <div style="display:flex;gap:0.8rem;margin-bottom:1.5rem;">
+                    <label class="taille-option">
+                        <input type="radio" name="kebabTaille" value="S" data-prix="4">
+                        <div class="taille-content">
+                            <span class="taille-label">S</span>
+                            <span class="taille-prix">4,00 €</span>
+                        </div>
+                    </label>
+                    <label class="taille-option">
+                        <input type="radio" name="kebabTaille" value="M" data-prix="5">
+                        <div class="taille-content">
+                            <span class="taille-label">M</span>
+                            <span class="taille-prix">5,00 €</span>
+                        </div>
+                    </label>
+                    <label class="taille-option">
+                        <input type="radio" name="kebabTaille" value="L" data-prix="8">
+                        <div class="taille-content">
+                            <span class="taille-label">L</span>
+                            <span class="taille-prix">8,00 €</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="choix-erreur" id="kebabAccompErreur">⚠️ Veuillez choisir une taille.</div>
+                <button class="btn-suivant" onclick="validerKebabAccomp()">Ajouter au panier</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modale Menu Enfant -->
     <div class="choix-overlay" id="enfantOverlay">
         <div class="choix-modal" style="max-width:440px;">
@@ -1940,6 +2081,56 @@
             } else {
                 panier.push({ nom, prix, qte: 1 });
             }
+            mettreAJourUI();
+            afficherNotif();
+        }
+
+        /* ══════ FRITES ACCOMPAGNEMENT ══════ */
+        function ouvrirFrites() {
+            document.querySelectorAll('input[name="fritesTaille"]').forEach(r => r.checked = false);
+            document.querySelectorAll('#fritesOverlay .choix-tag').forEach(t => t.classList.remove('selected-sauce'));
+            document.getElementById('fritesErreur').classList.remove('show');
+            document.getElementById('fritesOverlay').classList.add('open');
+        }
+        function fermerFrites() {
+            document.getElementById('fritesOverlay').classList.remove('open');
+        }
+        function toggleSauceFrites(el) {
+            document.querySelectorAll('#fritesOverlay .choix-tag').forEach(t => t.classList.remove('selected-sauce'));
+            el.classList.add('selected-sauce');
+        }
+        function validerFrites() {
+            const taille = document.querySelector('input[name="fritesTaille"]:checked');
+            const sauce  = document.querySelector('#fritesOverlay .choix-tag.selected-sauce');
+            const erreur = document.getElementById('fritesErreur');
+            if (!taille) { erreur.textContent = '⚠️ Veuillez choisir une taille.'; erreur.classList.add('show'); return; }
+            if (!sauce)  { erreur.textContent = '⚠️ Veuillez choisir une sauce.';  erreur.classList.add('show'); return; }
+            const prix = parseFloat(taille.dataset.prix);
+            const nom  = 'Frites ' + taille.value + ' – Sauce ' + sauce.textContent;
+            const existant = panier.find(i => i.nom === nom);
+            if (existant) { existant.qte++; } else { panier.push({ nom, prix, qte: 1 }); }
+            fermerFrites();
+            mettreAJourUI();
+            afficherNotif();
+        }
+
+        /* ══════ KEBAB ACCOMPAGNEMENT ══════ */
+        function ouvrirKebabAccomp() {
+            document.querySelectorAll('input[name="kebabTaille"]').forEach(r => r.checked = false);
+            document.getElementById('kebabAccompErreur').classList.remove('show');
+            document.getElementById('kebabAccompOverlay').classList.add('open');
+        }
+        function fermerKebabAccomp() {
+            document.getElementById('kebabAccompOverlay').classList.remove('open');
+        }
+        function validerKebabAccomp() {
+            const taille = document.querySelector('input[name="kebabTaille"]:checked');
+            if (!taille) { document.getElementById('kebabAccompErreur').classList.add('show'); return; }
+            const prix = parseFloat(taille.dataset.prix);
+            const nom  = 'Kebab ' + taille.value;
+            const existant = panier.find(i => i.nom === nom);
+            if (existant) { existant.qte++; } else { panier.push({ nom, prix, qte: 1 }); }
+            fermerKebabAccomp();
             mettreAJourUI();
             afficherNotif();
         }
