@@ -528,6 +528,37 @@
         }
         .btn-suivant:hover { transform: translateY(-2px); }
 
+        /* ── Menu Enfant options ── */
+        .enfant-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .enfant-option input[type="radio"] { display: none; }
+        .enfant-option-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: all 0.2s;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #444;
+        }
+        .enfant-option input:checked + .enfant-option-content {
+            border-color: #FF6B35;
+            background: #fff5ee;
+            color: #FF6B35;
+        }
+        .enfant-option-content:hover {
+            border-color: #FF6B35;
+            background: #fff5ee;
+        }
+
         /* ── Page commande ── */
         .order-overlay {
             position: fixed;
@@ -1465,7 +1496,7 @@
                     <p>Au choix : Cheeseburger, Nuggets 6Pc ou Mini Tacos</p>
                     <p>+ Frites + Boisson Capri Sun + Cadeau Surprise</p>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Menu Enfant', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirMenuEnfant()">+ Ajouter</button>
                 </div>
                 </div>
             </div>
@@ -1703,6 +1734,61 @@
     <div class="overlay" id="overlay" onclick="closeSupplements()"></div>
 
     <!-- Popup suppléments -->
+    <!-- Modale Menu Enfant -->
+    <div class="choix-overlay" id="enfantOverlay">
+        <div class="choix-modal" style="max-width:440px;">
+            <div class="choix-modal-header">
+                <h2>
+                    <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f476/emoji.svg" style="width:26px;height:26px;vertical-align:middle;filter:brightness(10);margin-right:6px;">
+                    Menu Enfant
+                </h2>
+                <button class="choix-modal-close" onclick="fermerMenuEnfant()">✕</button>
+            </div>
+            <div class="choix-modal-body">
+
+                <!-- Info inclus -->
+                <div style="background:#fdf5f0;border-left:4px solid #FF6B35;border-radius:0 10px 10px 0;padding:0.8rem 1rem;margin-bottom:1.5rem;font-size:0.9rem;color:#555;line-height:1.7;">
+                    <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f35f/emoji.svg" style="width:18px;height:18px;vertical-align:middle;"> Frites incluses<br>
+                    <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9c3/emoji.svg" style="width:18px;height:18px;vertical-align:middle;"> Capri Sun inclus<br>
+                    <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f381/emoji.svg" style="width:18px;height:18px;vertical-align:middle;"> Cadeau Surprise
+                </div>
+
+                <!-- Choix plat -->
+                <div class="choix-section-title">
+                    Choisissez votre plat
+                    <span class="choix-required">Obligatoire</span>
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1.5rem;">
+                    <label class="enfant-option" id="enfant-opt-1">
+                        <input type="radio" name="enfantPlat" value="Cheeseburger" onchange="selectionnerEnfant(this)">
+                        <div class="enfant-option-content">
+                            <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f354/emoji.svg" style="width:32px;height:32px;">
+                            <span>Cheeseburger</span>
+                        </div>
+                    </label>
+                    <label class="enfant-option" id="enfant-opt-2">
+                        <input type="radio" name="enfantPlat" value="Nuggets 6Pc" onchange="selectionnerEnfant(this)">
+                        <div class="enfant-option-content">
+                            <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f357/emoji.svg" style="width:32px;height:32px;">
+                            <span>Nuggets 6Pc</span>
+                        </div>
+                    </label>
+                    <label class="enfant-option" id="enfant-opt-3">
+                        <input type="radio" name="enfantPlat" value="Mini Tacos" onchange="selectionnerEnfant(this)">
+                        <div class="enfant-option-content">
+                            <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f32e/emoji.svg" style="width:32px;height:32px;">
+                            <span>Mini Tacos</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="choix-erreur" id="enfantErreur">⚠️ Veuillez choisir un plat.</div>
+                <button class="btn-suivant" onclick="validerMenuEnfant()">Ajouter au panier</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modale choix viandes & sauces -->
     <div class="choix-overlay" id="choixOverlay">
         <div class="choix-modal">
@@ -1854,6 +1940,39 @@
             } else {
                 panier.push({ nom, prix, qte: 1 });
             }
+            mettreAJourUI();
+            afficherNotif();
+        }
+
+        /* ══════ MENU ENFANT ══════ */
+        function ouvrirMenuEnfant() {
+            document.querySelectorAll('input[name="enfantPlat"]').forEach(r => r.checked = false);
+            document.querySelectorAll('.enfant-option-content').forEach(c => {
+                c.style.borderColor = '';
+                c.style.background = '';
+            });
+            document.getElementById('enfantErreur').classList.remove('show');
+            document.getElementById('enfantOverlay').classList.add('open');
+        }
+
+        function fermerMenuEnfant() {
+            document.getElementById('enfantOverlay').classList.remove('open');
+        }
+
+        function selectionnerEnfant(radio) {
+            document.getElementById('enfantErreur').classList.remove('show');
+        }
+
+        function validerMenuEnfant() {
+            const choix = document.querySelector('input[name="enfantPlat"]:checked');
+            if (!choix) {
+                document.getElementById('enfantErreur').classList.add('show');
+                return;
+            }
+            const nom = 'Menu Enfant – ' + choix.value + ' (Frites + Capri Sun + Cadeau)';
+            const existant = panier.find(i => i.nom === nom);
+            if (existant) { existant.qte++; } else { panier.push({ nom, prix: 7.00, qte: 1 }); }
+            fermerMenuEnfant();
             mettreAJourUI();
             afficherNotif();
         }
