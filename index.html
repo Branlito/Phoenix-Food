@@ -1154,7 +1154,7 @@
         <div class="menu-category">
             <div class="category-header">
                 <h3 class="category-title" style="margin:0; border:none;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f354/emoji.svg" class="cat-icon" alt="burger"> Menu Burger</h3>
-                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+                <button class="btn-supplements" onclick="openSupplements(true)">➕ Voir suppléments</button>
             </div>
             <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
@@ -1218,7 +1218,7 @@
         <div class="menu-category">
             <div class="category-header">
                 <h3 class="category-title" style="margin:0; border:none;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f32e/emoji.svg" class="cat-icon" alt="tacos"> Menu Tacos</h3>
-                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+                <button class="btn-supplements" onclick="openSupplements(true)">➕ Voir suppléments</button>
             </div>
             <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <p style="text-align: center; margin-bottom: 0.6rem; font-style: italic;">Viandes au choix : Viande hachée, kefta, tenders, nuggets, falafel, mex kefta, kebab, poulet, merguez, saumon, cordon bleu</p>
@@ -1260,7 +1260,7 @@
         <div class="menu-category">
             <div class="category-header">
                 <h3 class="category-title" style="margin:0; border:none;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f96a/emoji.svg" class="cat-icon" alt="sandwich"> Menu Sandwich</h3>
-                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+                <button class="btn-supplements" onclick="openSupplements(true)">➕ Voir suppléments</button>
             </div>
             <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
@@ -1333,7 +1333,7 @@
         <div class="menu-category">
             <div class="category-header">
                 <h3 class="category-title" style="margin:0; border:none;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f956/emoji.svg" class="cat-icon" alt="panini"> Menu Panini</h3>
-                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+                <button class="btn-supplements" onclick="openSupplements(true)">➕ Voir suppléments</button>
             </div>
             <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
@@ -1401,7 +1401,7 @@
         <div class="menu-category">
             <div class="category-header">
                 <h3 class="category-title" style="margin:0; border:none;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f37d_fe0f/emoji.svg" class="cat-icon" alt="assiette"> Assiettes & Bowls</h3>
-                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+                <button class="btn-supplements" onclick="openSupplements(true)">➕ Voir suppléments</button>
             </div>
             <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <p style="text-align: center; margin-bottom: 0.6rem; font-style: italic;">Viandes au choix : Viande hachée, kefta, tenders, nuggets, falafel, mex kefta, kebab, poulet, merguez, saumon, cordon bleu</p>
@@ -1464,7 +1464,7 @@
         <div class="menu-category">
             <div class="category-header">
                 <h3 class="category-title" style="margin:0; border:none;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/emoji.svg" class="cat-icon" alt="feu"> Menu Hummer</h3>
-                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+                <button class="btn-supplements" onclick="openSupplements(true)">➕ Voir suppléments</button>
             </div>
             <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
@@ -1497,7 +1497,7 @@
         <div class="menu-category">
             <div class="category-header">
                 <h3 class="category-title" style="margin:0; border:none;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f9c0/emoji.svg" class="cat-icon" alt="fromage"> Gratin Au Four</h3>
-                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+                <button class="btn-supplements" onclick="openSupplements(true)">➕ Voir suppléments</button>
             </div>
             <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
@@ -1540,7 +1540,7 @@
         <div class="menu-category">
             <div class="category-header">
                 <h3 class="category-title" style="margin:0; border:none;"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f35f/emoji.svg" class="cat-icon" alt="frites"> Accompagnements</h3>
-                <button class="btn-supplements" onclick="openSupplements()">➕ Voir suppléments</button>
+                <button class="btn-supplements" onclick="openSupplements(true)">➕ Voir suppléments</button>
             </div>
             <div style="border-bottom: 3px solid #F7931E; margin: 0.5rem 0 1.5rem;"></div>
             <div class="menu-grid">
@@ -2058,8 +2058,9 @@
             <span id="suppTotal" style="color:#FF6B35; font-weight:800; font-size:1.2rem;">0,00 €</span>
         </div>
 
-        <button class="supplements-close" style="background:linear-gradient(135deg,#FF6B35,#F7931E); margin-bottom:0.5rem;" onclick="confirmerAjout()">Ajouter au panier</button>
-        <button class="supplements-close" style="background:#aaa;" onclick="closeSupplements()">Annuler</button>
+        <button id="suppBtnAjouter" class="supplements-close" style="background:linear-gradient(135deg,#FF6B35,#F7931E); margin-bottom:0.5rem;" onclick="confirmerAjout()">Ajouter au panier</button>
+        <button id="suppBtnAnnuler" class="supplements-close" style="background:#aaa;" onclick="closeSupplements()">Annuler</button>
+        <button id="suppBtnFermer"  class="supplements-close" style="background:#aaa;display:none;" onclick="closeSupplements()">Fermer</button>
     </div>
 
     <script>
@@ -2478,7 +2479,25 @@
                 fermerPanier();
             }
         });
-        function openSupplements() {
+        function openSupplements(modeConsultation) {
+            const popup = document.getElementById('supplementsPopup');
+            const btnAjouter = document.getElementById('suppBtnAjouter');
+            const btnAnnuler = document.getElementById('suppBtnAnnuler');
+            const btnFermer  = document.getElementById('suppBtnFermer');
+
+            if (modeConsultation) {
+                // Désactiver les cases à cocher
+                popup.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.disabled = true; cb.checked = false; });
+                btnAjouter.style.display = 'none';
+                btnAnnuler.style.display = 'none';
+                btnFermer.style.display  = 'block';
+            } else {
+                popup.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.disabled = false; });
+                btnAjouter.style.display = 'block';
+                btnAnnuler.style.display = 'block';
+                btnFermer.style.display  = 'none';
+            }
+
             document.getElementById('supplementsPopup').classList.add('active');
             document.getElementById('overlay').classList.add('active');
         }
