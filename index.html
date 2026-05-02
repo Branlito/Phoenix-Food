@@ -231,8 +231,7 @@
 
         /* ── Bouton ajouter au panier ── */
         .btn-cart {
-            margin-top: auto;
-            padding-top: 1rem;
+            margin-top: 1rem;
             background: transparent;
             color: #27ae60;
             border: 1.5px solid #27ae60;
@@ -246,19 +245,18 @@
             transition: all 0.25s ease;
             position: relative;
             overflow: hidden;
-            margin-top: 1rem;
         }
         .btn-cart::before {
             content: '';
             position: absolute;
             top: 0; left: -100%;
             width: 100%; height: 100%;
-            background: #27ae60;
+            background: white;
             transition: left 0.25s ease;
             z-index: 0;
         }
         .btn-cart:hover::before { left: 0; }
-        .btn-cart:hover { color: white; }
+        .btn-cart:hover { color: #27ae60; border-color: #27ae60; transform: translateY(-2px); }
         .btn-cart span { position: relative; z-index: 1; }
 
         /* ── Icône panier flottant ── */
@@ -1161,21 +1159,21 @@
                 <div class="menu-item">
                     <h3>Fish Burger</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Fish Burger', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Fish Burger', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Cheeseburger</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Cheeseburger', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Cheeseburger', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Double Cheese Burger</h3>
                     <div class="price">8,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Double Cheese Burger', 8.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Double Cheese Burger', 8.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,00€</div>
                 </div>
@@ -1183,14 +1181,14 @@
                     <h3>Svensk Burger</h3>
                     <p>Saumon, bacon</p>
                     <div class="price">9,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Svensk Burger', 9.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Svensk Burger', 9.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Chicken Boca Burger</h3>
                     <div class="price">8,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Chicken Boca Burger', 8.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Chicken Boca Burger', 8.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,00€</div>
                 </div>
@@ -1199,7 +1197,7 @@
                     <h3>Hurricane's Burger</h3>
                     <p>2 steaks, bacon, cheddar</p>
                     <div class="price">11,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Hurricane\'s Burger', 11.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Hurricane\'s Burger', 11.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
@@ -1207,7 +1205,7 @@
                     <h3>Burrata Burger</h3>
                     <p>2 steaks, oignon caramélisé, poivron confit, burrata, cheddar, potatos farcis</p>
                     <div class="price">11,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Burrata Burger', 11.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Burrata Burger', 11.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
@@ -1227,7 +1225,7 @@
                 <div class="menu-item">
                     <h3>Tacos 1 Viande</h3>
                     <div class="price">8,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 1 Viande', 8.00, 1)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 1 Viande', 8.00, 1)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,00€</div>
                 </div>
@@ -1235,21 +1233,21 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Tacos 2 Viandes</h3>
                     <div class="price">9,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 2 Viandes', 9.00, 2)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 2 Viandes', 9.00, 2)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tacos 3 Viandes</h3>
                     <div class="price">11,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 3 Viandes', 11.00, 3)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 3 Viandes', 11.00, 3)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tacos 4 Viandes</h3>
                     <div class="price">12,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 4 Viandes', 12.00, 4)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Tacos 4 Viandes', 12.00, 4)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 13,00€</div>
                 </div>
@@ -1268,7 +1266,7 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Kebab</h3>
                     <div class="price">8,50€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Kebab', 8.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Kebab', 8.50)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
@@ -1276,7 +1274,7 @@
                     <h3>Boca Fuego</h3>
                     <p>Poulet tex mex</p>
                     <div class="price">8,50€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Fuego', 8.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Fuego', 8.50)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
@@ -1284,7 +1282,7 @@
                     <h3>Boca Frio</h3>
                     <p>Poulet curry</p>
                     <div class="price">8,50€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Frio', 8.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Frio', 8.50)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
@@ -1292,7 +1290,7 @@
                     <h3>Bocaorlente Eu</h3>
                     <p>Kefta, merguez</p>
                     <div class="price">8,50€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Bocaorlente Eu', 8.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Bocaorlente Eu', 8.50)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
@@ -1300,7 +1298,7 @@
                     <h3>Boca Phoenix</h3>
                     <p>Steak, merguez, œuf</p>
                     <div class="price">9,50€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Phoenix', 9.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Phoenix', 9.50)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,50€</div>
                 </div>
@@ -1308,21 +1306,21 @@
                     <h3>Boca Burrata</h3>
                     <p>Steak, poulet, burrata</p>
                     <div class="price">9,50€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Burrata', 9.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Boca Burrata', 9.50)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,50€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Bocamericain</h3>
                     <div class="price">8,50€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Bocamericain', 8.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Bocamericain', 8.50)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Bocawrap</h3>
                     <div class="price">8,50€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Bocawrap', 8.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Bocawrap', 8.50)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 9,50€</div>
                 </div>
@@ -1340,7 +1338,7 @@
                 <div class="menu-item">
                     <h3>Panini 3 Fromages</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Panini 3 Fromages', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini 3 Fromages', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
@@ -1348,49 +1346,49 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Panini Steak Haché</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Steak Haché', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Steak Haché', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Poulet</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Poulet', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Poulet', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Poulet Tex Mex</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Poulet Tex Mex', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Poulet Tex Mex', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Poulet Curry</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Poulet Curry', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Poulet Curry', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Kefta</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Kefta', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Kefta', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Saumon</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Saumon', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Saumon', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Merguez</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Merguez', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Panini Merguez', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
@@ -1410,28 +1408,28 @@
                 <div class="menu-item">
                     <h3>Assiette 1 Viande</h3>
                     <div class="price">9,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Assiette 1 Viande', 9.00, 1)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Assiette 1 Viande', 9.00, 1)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Assiette 2 Viandes</h3>
                     <div class="price">10,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Assiette 2 Viandes', 10.00, 2)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Assiette 2 Viandes', 10.00, 2)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Assiette 3 Viandes</h3>
                     <div class="price">11,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Assiette 3 Viandes', 11.00, 3)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Assiette 3 Viandes', 11.00, 3)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Crusty/Bowl 1 Viande</h3>
                     <div class="price">9,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Crusty/Bowl 1 Viande', 9.00, 1)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Crusty/Bowl 1 Viande', 9.00, 1)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
@@ -1439,21 +1437,21 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Crusty/Bowl 2 Viandes</h3>
                     <div class="price">10,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Crusty/Bowl 2 Viandes', 10.00, 2)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Crusty/Bowl 2 Viandes', 10.00, 2)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Crusty/Bowl 3 Viandes</h3>
                     <div class="price">11,00€
-                    <button class="btn-cart" onclick="ouvrirChoixViandes('Crusty/Bowl 3 Viandes', 11.00, 3)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirChoixViandes('Crusty/Bowl 3 Viandes', 11.00, 3)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Poulet Crusty</h3>
                     <div class="price">10,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Poulet Crusty', 10.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Poulet Crusty', 10.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
@@ -1471,7 +1469,7 @@
                 <div class="menu-item">
                     <h3>Hummer H1</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Hummer H1', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Hummer H1', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 8,00€</div>
                 </div>
@@ -1479,14 +1477,14 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Hummer H2</h3>
                     <div class="price">9,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Hummer H2', 9.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Hummer H2', 9.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 10,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Hummer H3</h3>
                     <div class="price">10,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Hummer H3', 10.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Hummer H3', 10.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
@@ -1506,7 +1504,7 @@
                     <h3>Frites, Poulet Mariné</h3>
                     <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
                     <div class="price">10,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Frites, Poulet Mariné', 10.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Frites, Poulet Mariné', 10.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 11,00€</div>
                 </div>
@@ -1514,7 +1512,7 @@
                     <h3>Poulet Steak</h3>
                     <p>Base gratiné : sauce fromagère maison, crème onctueuse & mozzarella gratinée</p>
                     <div class="price">11,00€
-                    <button class="btn-cart" onclick="ajouterAuPanier('Poulet Steak', 11.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterAuPanier('Poulet Steak', 11.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 12,00€</div>
                 </div>
@@ -1530,7 +1528,7 @@
                     <p>Au choix : Cheeseburger, Nuggets 6Pc ou Mini Tacos</p>
                     <p>+ Frites + Boisson Capri Sun + Cadeau Surprise</p>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ouvrirMenuEnfant()">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirMenuEnfant()"><span>+ Ajouter</span></button>
                 </div>
                 </div>
             </div>
@@ -1549,55 +1547,55 @@
                     <h3>Frites</h3>
                     <p>S : 3€ | M : 4€ | L : 5€</p>
                     <div class="price">3,00€</div>
-                    <button class="btn-cart" onclick="ouvrirFrites()">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirFrites()"><span>+ Ajouter</span></button>
                 </div>
                 <div class="menu-item">
                     <h3>Kebab</h3>
                     <p>S : 4€ | M : 5€ | L : 8€</p>
                     <div class="price">4,00€</div>
-                    <button class="btn-cart" onclick="ouvrirKebabAccomp()">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ouvrirKebabAccomp()"><span>+ Ajouter</span></button>
                 </div>
                 <div class="menu-item">
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Chicken Wings 6Pc</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Chicken Wings 6Pc', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Chicken Wings 6Pc', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
                 <div class="menu-item">
                     <h3>Crevettes Panées 6Pc</h3>
                     <div class="price">7,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Crevettes Panées 6Pc', 7.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Crevettes Panées 6Pc', 7.00)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
                 <div class="menu-item">
                     <h3>Jalapeños 6Pc</h3>
                     <div class="price">6,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Jalapeños 6Pc', 6.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Jalapeños 6Pc', 6.00)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
                 <div class="menu-item">
                     <h3>Camembert Panés 6Pc</h3>
                     <div class="price">6,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Camembert Panés 6Pc', 6.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Camembert Panés 6Pc', 6.00)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
                 <div class="menu-item">
                     <h3>Potatoes 6Pc</h3>
                     <div class="price">6,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Potatoes 6Pc', 6.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Potatoes 6Pc', 6.00)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
                 <div class="menu-item">
                     <h3>Stick Mozzarella 6Pc</h3>
                     <div class="price">6,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Stick Mozzarella 6Pc', 6.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Stick Mozzarella 6Pc', 6.00)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
                 <div class="menu-item">
                     <h3>Oignons Rings 6Pc</h3>
                     <div class="price">6,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Oignons Rings 6Pc', 6.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Oignons Rings 6Pc', 6.00)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
             </div>
@@ -1610,7 +1608,7 @@
                 <div class="menu-item">
                     <h3>Tarte Aux Noix</h3>
                     <div class="price">3,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Tarte Aux Noix', 3.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Tarte Aux Noix', 3.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
@@ -1618,28 +1616,28 @@
                     <span class="badge">🔥 Coup de cœur</span>
                     <h3>Tarte Citron</h3>
                     <div class="price">3,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Tarte Citron', 3.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Tarte Citron', 3.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tarte Pana Cotta</h3>
                     <div class="price">3,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Tarte Pana Cotta', 3.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Tarte Pana Cotta', 3.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Tiramisu</h3>
                     <div class="price">3,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Tiramisu', 3.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Tiramisu', 3.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
                 <div class="menu-item">
                     <h3>Panini Nutella</h3>
                     <div class="price">3,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Panini Nutella', 3.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Panini Nutella', 3.00)"><span>+ Ajouter</span></button>
                 </div>
                     <div class="price-menu">🥤 Menu : 4,00€</div>
                 </div>
@@ -1653,19 +1651,19 @@
                 <div class="menu-item">
                     <h3>Canette 33 Cl</h3>
                     <div class="price">1,50€
-                    <button class="btn-cart" onclick="ajouterDirect('Canette 33 Cl', 1.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Canette 33 Cl', 1.50)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
                 <div class="menu-item">
                     <h3>Bouteille 1,25 L</h3>
                     <div class="price">3,00€
-                    <button class="btn-cart" onclick="ajouterDirect('Bouteille 1,25 L', 3.00)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Bouteille 1,25 L', 3.00)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
                 <div class="menu-item">
                     <h3>Bouteille 1,5 L</h3>
                     <div class="price">3,50€
-                    <button class="btn-cart" onclick="ajouterDirect('Bouteille 1,5 L', 3.50)">+ Ajouter</button>
+                    <button class="btn-cart" onclick="ajouterDirect('Bouteille 1,5 L', 3.50)"><span>+ Ajouter</span></button>
                 </div>
                 </div>
             </div>
